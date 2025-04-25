@@ -1,0 +1,49 @@
+theme = "hugo-coder"
+baseURL = 'https://example.org/'
+languageCode = 'en-us'
+title = "Christian Vahrenkamp"
+Headtitle="Headtitle"
+
+caches:
+  images:
+    dir: :cacheDir/images
+
+[pagination]
+pagerSize = 20
+
+[services]
+[services.disqus]
+shortname = "yourdiscussshortname"
+
+[markup.highlight]
+style = "github-dark"
+
+[params]
+author = "Christian Vahrenkamp"
+info="Data Scientist"
+description="Data Scientist specialized in NLP"
+keywords="Large Language Model"
+avatarURL ="Image1.png"
+#gravatar="christian@t-online.de"
+
+# Menu links
+[[menu.main]]
+  name = "Blog"
+  weight = 1
+  url  = "posts/"
+[[menu.main]]
+  name = "About"
+  weight = 2
+  url = "about/"
+ 
+# Social
+  [[params.social]]
+  name = "Github"
+  icon = "fa-brands fa-github fa-2x"
+  weight = 1
+  url = "https://github.com/johndoe/"
+  [[params.social]]
+  name = "LinkedIn"
+  icon = "fa-brands fa-linkedin fa-2x"
+  weight = 2
+  url = "https://github.com/johndoe/"
