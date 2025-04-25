@@ -4,9 +4,9 @@ languageCode = 'en-us'
 title = "Christian Vahrenkamp"
 Headtitle="Headtitle"
 
-caches:
-  images:
-    dir: :cacheDir/images
+[caches]
+  [caches.images]
+    dir = ':cacheDir/images'
 
 [pagination]
 pagerSize = 20
