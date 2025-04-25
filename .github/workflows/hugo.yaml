@@ -70,6 +70,14 @@ jobs:
             --minify \
             --baseURL "${{ steps.pages.outputs.base_url }}/" \
             --cacheDir "${{ runner.temp }}/hugo_cache"
+      - name: Build Drafts Site
+        id: drafts
+        run: |
+          hugo -D \
+             --gc \
+             --minify \
+             --baseURL "${{ steps.pages.outputs.base_url }}/drafts/" \
+             --cacheDir "${{ runner.temp }}/hugo_cache"
       - name: Cache Save
         id: cache-save
         uses: actions/cache/save@v4
