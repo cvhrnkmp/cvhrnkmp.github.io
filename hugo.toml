@@ -27,6 +27,9 @@ keywords="Large Language Model"
 avatarURL ="Image1.png"
 #gravatar="christian@t-online.de"
 disableDefaultJsScripts = false
+colorScheme = "auto"
+hidecolorschemetoggle = false
+
 # Menu links
 [[menu.main]]
   name = "Blog"
