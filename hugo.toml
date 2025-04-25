@@ -26,7 +26,7 @@ description="Data Scientist specialized in NLP"
 keywords="Large Language Model"
 avatarURL ="Image1.png"
 #gravatar="christian@t-online.de"
-disableDefaultJsScripts = true
+disableDefaultJsScripts = false
 # Menu links
 [[menu.main]]
   name = "Blog"
