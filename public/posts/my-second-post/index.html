@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <title>
+  Retrieval-Augmented Generation (RAG) · Christian Vahrenkamp
+</title>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+
+
+
+
+<meta name="author" content="Christian Vahrenkamp">
+<meta name="description" content="
+  Getting Started with RAG: Your Friendly Guide
+  
+    
+    Link to heading
+  
+
+Hey there, curious AI explorer!
+Ever asked a chatbot a question only to get a completely made-up answer? So did I—until I discovered Retrieval-Augmented Generation (RAG). It’s like giving your AI a research assistant: it fetches real facts from a live document collection before coming up with a response. No more made-up stories!
+
+  What Is RAG, Anyway?
+  
+    
+    Link to heading
+  
+
+Simply put, RAG combines two superpowers:">
+<meta name="keywords" content="Large Language Model">
+
+
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Retrieval-Augmented Generation (RAG)">
+  <meta name="twitter:description" content="Getting Started with RAG: Your Friendly GuideLink to headingHey there, curious AI explorer!
+Ever asked a chatbot a question only to get a completely made-up answer? So did I—until I discovered Retrieval-Augmented Generation (RAG). It’s like giving your AI a research assistant: it fetches real facts from a live document collection before coming up with a response. No more made-up stories!
+What Is RAG, Anyway?Link to headingSimply put, RAG combines two superpowers:">
+
+<meta property="og:url" content="http://localhost:1313/posts/my-second-post/">
+  <meta property="og:site_name" content="Christian Vahrenkamp">
+  <meta property="og:title" content="Retrieval-Augmented Generation (RAG)">
+  <meta property="og:description" content="Getting Started with RAG: Your Friendly GuideLink to headingHey there, curious AI explorer!
+Ever asked a chatbot a question only to get a completely made-up answer? So did I—until I discovered Retrieval-Augmented Generation (RAG). It’s like giving your AI a research assistant: it fetches real facts from a live document collection before coming up with a response. No more made-up stories!
+What Is RAG, Anyway?Link to headingSimply put, RAG combines two superpowers:">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-04-18T15:26:23+02:00">
+    <meta property="article:modified_time" content="2025-04-18T15:26:23+02:00">
+
+
+
+
+<link rel="canonical" href="http://localhost:1313/posts/my-second-post/">
+
+
+<link rel="preload" href="/fonts/fa-brands-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/fa-regular-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin>
+
+
+  
+  
+  <link rel="stylesheet" href="/css/coder.css" media="screen">
+
+
+
+
+
+
+  
+    
+    
+    <link rel="stylesheet" href="/css/coder-dark.css" media="screen">
+  
+
+
+
+ 
+
+
+
+
+<link rel="icon" type="image/svg+xml" href="/images/favicon.svg" sizes="any">
+<link rel="icon" type="image/png" href="/images/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/images/favicon-16x16.png" sizes="16x16">
+
+<link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+
+
+</head>
+
+
+
+
+
+
+<body class="preload-transitions colorscheme-auto">
+  
+<div class="float-container">
+    <a id="dark-mode-toggle" class="colorscheme-toggle">
+        <i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i>
+    </a>
+</div>
+
+
+  <main class="wrapper">
+    <nav class="navigation">
+  <section class="container">
+    
+    <a class="navigation-title" href="http://localhost:1313/">
+      Christian Vahrenkamp
+    </a>
+    
+    
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa-solid fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item">
+              <a class="navigation-link " href="/posts/">Blog</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link " href="/about/">About</a>
+            </li>
+          
+        
+        
+      </ul>
+    
+  </section>
+</nav>
+
+
+    <div class="content">
+      
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">
+            <a class="title-link" href="http://localhost:1313/posts/my-second-post/">
+              Retrieval-Augmented Generation (RAG)
+            </a>
+          </h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fa-solid fa-calendar" aria-hidden="true"></i>
+              <time datetime="2025-04-18T15:26:23&#43;02:00">
+                April 18, 2025
+              </time>
+            </span>
+            <span class="reading-time">
+              <i class="fa-solid fa-clock" aria-hidden="true"></i>
+              5-minute read
+            </span>
+          </div>
+          
+          
+          
+        </div>
+      </header>
+
+      <div class="post-content">
+        
+        <h1 id="getting-started-with-rag-your-friendly-guide">
+  Getting Started with RAG: Your Friendly Guide
+  <a class="heading-link" href="#getting-started-with-rag-your-friendly-guide">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h1>
+<p><strong>Hey there, curious AI explorer!</strong></p>
+<p>Ever asked a chatbot a question only to get a completely made-up answer? So did I—until I discovered Retrieval-Augmented Generation (RAG). It’s like giving your AI a research assistant: it fetches real facts from a live document collection before coming up with a response. No more made-up stories!</p>
+<h2 id="what-is-rag-anyway">
+  What Is RAG, Anyway?
+  <a class="heading-link" href="#what-is-rag-anyway">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p>Simply put, RAG combines two superpowers:</p>
+<ol>
+<li>🔍 <strong>Retrieval</strong>: Searches external sources (web pages, PDFs, internal docs) and picks out the most relevant snippets.</li>
+<li>✍️ <strong>Generation</strong>: Feeds those snippets into a language model so it crafts responses grounded in actual information.</li>
+</ol>
+<p>Think of it as “search” + “chatbot.” Your model still has its own knowledge, but now it double-checks against fresh data every time.</p>
+<h2 id="how-rag-works-in-3-steps">
+  How RAG Works in 3 Steps
+  <a class="heading-link" href="#how-rag-works-in-3-steps">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<ol>
+<li><strong>Indexing</strong>: Break your docs into bite‑sized chunks and convert each into a vector embedding.</li>
+<li><strong>Retrieval</strong>: Turn the user’s question into an embedding and hunt for the top <em>k</em> chunks.</li>
+<li><strong>Generation</strong>: Prompt the model with the question plus those retrieved chunks, and voilà—an answer backed by real evidence.</li>
+</ol>
+<p><img src="/Post2/RAG_Flow.excalidraw.svg" alt="RAG Flow"></p>
+<h2 id="core-components-of-rag">
+  Core Components of RAG
+  <a class="heading-link" href="#core-components-of-rag">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p>RAG systems share three foundational building blocks that make them tick:</p>
+<h3 id="1-retrieval">
+  1. Retrieval
+  <a class="heading-link" href="#1-retrieval">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<ul>
+<li><strong>Indexing &amp; Embedding</strong>: Split documents into chunks and embed each (e.g., Sentence-BERT, OpenAI embeddings).</li>
+<li><strong>Vector Search</strong>: Use FAISS or similar to find semantically closest chunks via cosine similarity.</li>
+<li><strong>Keyword &amp; Hybrid Methods</strong>: Incorporate BM25 for keyword matching or fuse vector + BM25 scores to boost recall.</li>
+</ul>
+<h3 id="2-generation">
+  2. Generation
+  <a class="heading-link" href="#2-generation">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<ul>
+<li><strong>Prompt Construction</strong>: Combine the user query with retrieved snippets into a single prompt.</li>
+<li><strong>Fusion Methods</strong>: Techniques like Fusion-in-Decoder let the model attend to each snippet before writing.</li>
+<li><strong>Fine-Tuning</strong>: Retrieval-aware fine-tuning aligns model behavior to stick closely to source facts.</li>
+</ul>
+<h3 id="3-augmentation">
+  3. Augmentation
+  <a class="heading-link" href="#3-augmentation">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<ul>
+<li><strong>Reranking &amp; Filtering</strong>: After retrieval, reorder or trim snippets to emphasize the most relevant bits.</li>
+<li><strong>Context Compression</strong>: Summarize or overlap-reduce chunks to fit prompt length limits.</li>
+<li><strong>Dynamic Prompting</strong>: Use templates or chain-of-thought to guide the model’s reasoning over evidence.</li>
+</ul>
+<hr>
+<h2 id="a-brief-evolution-of-rag">
+  A Brief Evolution of RAG
+  <a class="heading-link" href="#a-brief-evolution-of-rag">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p>RAG didn’t appear fully formed; it’s evolved through three main stages:</p>
+<ol>
+<li><strong>Naive RAG</strong>: The original “retrieve-and-read” pipeline. Easy to set up but often noisy—too many irrelevant snippets can sneak in, and hallucinations still happen.</li>
+<li><strong>Advanced RAG</strong>: Adds clever pre- and post-retrieval tricks:
+<ul>
+<li><strong>Query rewriting</strong> (helps search understand your intent better)</li>
+<li><strong>Reranking</strong> (surfaces the juiciest snippets)</li>
+<li><strong>Context compression</strong> (summarizes or trims to fit prompt limits)</li>
+</ul>
+</li>
+<li><strong>Modular RAG</strong>: Picture a LEGO set of interchangeable blocks—vector retrievers, keyword search, memory modules, routing logic, task adapters. You can mix, match, or even fine-tune them jointly for your specific application.</li>
+</ol>
+<p>Each step up makes your RAG system sharper, faster, and more reliable.</p>
+<hr>
+<h2 id="finding-the-perfect-snippets">
+  Finding the Perfect Snippets
+  <a class="heading-link" href="#finding-the-perfect-snippets">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p>The secret sauce is picking the right chunks. Here’s how you do it:</p>
+<h3 id="vector-search-cosine-similarity">
+  Vector Search (Cosine Similarity)
+  <a class="heading-link" href="#vector-search-cosine-similarity">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<ol>
+<li><strong>Embed</strong> chunks and your query into high-dimensional vectors (e.g., with Sentence‑BERT or OpenAI embeddings).</li>
+<li><strong>Compute</strong> cosine similarity:
+[
+\text{cos}(q, d_i) = \frac{q \cdot d_i}{|q| , |d_i|}
+]</li>
+<li><strong>Pick</strong> the top <em>k</em> closest by score.</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Pseudo-code</span>
+</span></span><span style="display:flex;"><span>D, I <span style="color:#ff7b72;font-weight:bold">=</span> faiss_index<span style="color:#ff7b72;font-weight:bold">.</span>search(query_vec, k<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">5</span>)
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># &#39;I&#39; lists the IDs of the top 5 chunks</span>
+</span></span></code></pre></div><h3 id="keyword-search-bm25">
+  Keyword Search (BM25)
+  <a class="heading-link" href="#keyword-search-bm25">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<ol>
+<li>Build an <strong>inverted index</strong> that maps terms to chunks.</li>
+<li><strong>Score</strong> chunks with BM25:
+[
+\text{score}(q, d_i) = \sum_{t\in q} \frac{f(t,d_i)(k1+1)}{f(t,d_i) + k1(1 - b + b,|d_i|/avgdl)} \times \log\frac{N - n_t + 0.5}{n_t + 0.5}
+]</li>
+<li><strong>Select</strong> chunks with the highest BM25 scores.</li>
+</ol>
+<h3 id="hybrid-search">
+  Hybrid Search
+  <a class="heading-link" href="#hybrid-search">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<p>Want the best of both worlds? Fuse them:</p>
+<ol>
+<li><strong>Run</strong> both vector and BM25 searches.</li>
+<li><strong>Normalize</strong> each score set (e.g., min-max).</li>
+<li><strong>Fuse</strong> (sum or average).</li>
+<li><strong>Rank</strong> by fused score and grab the top <em>k</em>.</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Pseudo-code for hybrid retrieval</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">def</span> <span style="color:#d2a8ff;font-weight:bold">hybrid_search</span>(text, vec):
+</span></span><span style="display:flex;"><span>    v_scores, v_ids <span style="color:#ff7b72;font-weight:bold">=</span> vec_index<span style="color:#ff7b72;font-weight:bold">.</span>search(vec, k<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">5</span>)
+</span></span><span style="display:flex;"><span>    b_scores, b_ids <span style="color:#ff7b72;font-weight:bold">=</span> bm25<span style="color:#ff7b72;font-weight:bold">.</span>search(text, k<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">5</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    fused <span style="color:#ff7b72;font-weight:bold">=</span> {}
+</span></span><span style="display:flex;"><span>    <span style="color:#ff7b72">for</span> idx, v <span style="color:#ff7b72;font-weight:bold">in</span> zip(v_ids, v_scores): fused[idx] <span style="color:#ff7b72;font-weight:bold">=</span> fused<span style="color:#ff7b72;font-weight:bold">.</span>get(idx, <span style="color:#a5d6ff">0</span>) <span style="color:#ff7b72;font-weight:bold">+</span> normalize(v)
+</span></span><span style="display:flex;"><span>    <span style="color:#ff7b72">for</span> idx, b <span style="color:#ff7b72;font-weight:bold">in</span> zip(b_ids, b_scores): fused[idx] <span style="color:#ff7b72;font-weight:bold">=</span> fused<span style="color:#ff7b72;font-weight:bold">.</span>get(idx, <span style="color:#a5d6ff">0</span>) <span style="color:#ff7b72;font-weight:bold">+</span> normalize(b)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#8b949e;font-style:italic"># Return top chunk IDs</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff7b72">return</span> sorted(fused, key<span style="color:#ff7b72;font-weight:bold">=</span>fused<span style="color:#ff7b72;font-weight:bold">.</span>get, reverse<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#79c0ff">True</span>)[:<span style="color:#a5d6ff">5</span>]
+</span></span></code></pre></div><hr>
+<h2 id="rag-in-action-mini-example">
+  RAG in Action: Mini Example
+  <a class="heading-link" href="#rag-in-action-mini-example">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p>Let’s test-drive a tiny corpus:</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>Doc1: &#34;Machine learning uses statistics to teach computers.&#34;  
+</span></span><span style="display:flex;"><span>Doc2: &#34;RAG means Retrieval-Augmented Generation.&#34;  
+</span></span><span style="display:flex;"><span>Doc3: &#34;Cosine similarity measures angles between vectors.&#34;  
+</span></span></code></pre></div><ol>
+<li>
+<p><strong>Indexing</strong>: Embed each sentence and add to FAISS/BM25.</p>
+</li>
+<li>
+<p><strong>User Query</strong>: &ldquo;What does RAG mean?&rdquo;</p>
+</li>
+<li>
+<p><strong>Retrieval</strong>:</p>
+<ul>
+<li>Vector search → Doc2</li>
+<li>BM25 search → Doc2</li>
+<li>Hybrid → Doc2</li>
+</ul>
+</li>
+<li>
+<p><strong>Prompt</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>Use this context:
+</span></span><span style="display:flex;"><span>- Doc2: RAG means Retrieval-Augmented Generation.
+</span></span><span style="display:flex;"><span>Q: What does RAG mean?
+</span></span></code></pre></div></li>
+<li>
+<p><strong>Model Answer</strong>:</p>
+<blockquote>
+<p>RAG stands for Retrieval-Augmented Generation. It helps language models fetch relevant information before answering.</p></blockquote>
+</li>
+</ol>
+<p>Boom—a clear, fact-backed answer! 🎉</p>
+<hr>
+<h2 id="real-world-use-cases">
+  Real-World Use Cases
+  <a class="heading-link" href="#real-world-use-cases">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<ul>
+<li><strong>Open-domain Q&amp;A</strong>: Build chatbots that search the web or private databases in real time.</li>
+<li><strong>Fact Verification</strong>: Cross-check news articles or research papers on the fly.</li>
+<li><strong>Code Generation</strong>: Pull in API docs or code snippets before coding.</li>
+<li><strong>Healthcare &amp; Legal</strong>: Give professionals evidence-backed summaries of guidelines, cases, or medical studies.</li>
+</ul>
+<hr>
+<h2 id="challenges-to-watch">
+  Challenges to Watch
+  <a class="heading-link" href="#challenges-to-watch">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p>Even the coolest RAG systems face hurdles:</p>
+<ul>
+<li><strong>Retrieval vs. Noise</strong>: More docs = more chance of irrelevant snippets.</li>
+<li><strong>Hallucinations</strong>: Models still might stray from the retrieved facts.</li>
+<li><strong>Latency &amp; Scale</strong>: Searching huge corpora quickly takes careful engineering.</li>
+<li><strong>Explainability</strong>: Auditing which snippet led to which part of the answer can be tricky.</li>
+</ul>
+<hr>
+<h2 id="next-steps--tips">
+  Next Steps &amp; Tips
+  <a class="heading-link" href="#next-steps--tips">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<ol>
+<li><strong>Experiment with embeddings</strong>: SBERT, OpenAI, or custom models.</li>
+<li><strong>Tune your BM25</strong>: Play with <code>k1</code> and <code>b</code> for your data.</li>
+<li><strong>Add a reranker</strong>: Use a cross-encoder for better snippet ordering.</li>
+<li><strong>Use modular pipelines</strong>: Swap in new retrievers, memory modules, or adapters.</li>
+<li><strong>Monitor &amp; log</strong>: Track retrieval accuracy and answer quality over time.</li>
+</ol>
+<p>Ready to supercharge your AI? Try RAG today and share your success stories in the comments below! 🚀</p>
+
+      </div>
+
+
+      <footer>
+        
+
+
+        <div id="disqus_thread"></div>
+<script>
+  window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "Christian Va." + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+    
+    document.addEventListener('themeChanged', function (e) { 
+        if (document.readyState == 'complete') {
+          DISQUS.reset({ reload: true, config: disqus_config });
+        }
+    });
+</script>
+        
+        
+        
+        
+        
+        
+      </footer>
+    </article>
+
+    
+  </section>
+
+    </div>
+
+    <footer class="footer">
+  <section class="container">
+    ©
+    
+    2025
+     Christian Vahrenkamp 
+    ·
+    
+    Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> & <a href="https://github.com/luizdepra/hugo-coder/" target="_blank" rel="noopener">Coder</a>.
+    
+  </section>
+</footer>
+
+  </main>
+
+  
+
+  
+  
+  <script src="/js/coder.js"></script>
+  
+
+  
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</body>
+</html>
