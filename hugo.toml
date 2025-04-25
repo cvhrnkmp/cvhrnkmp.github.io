@@ -7,7 +7,9 @@ Headtitle="Headtitle"
 [caches]
   [caches.images]
     dir = ':cacheDir/images'
-
+[params]
+  disableDefaultJsScripts = true
+  
 [pagination]
 pagerSize = 20
 
