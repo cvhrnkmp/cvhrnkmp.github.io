@@ -12,9 +12,7 @@ Headtitle="Headtitle"
 [pagination]
 pagerSize = 20
 
-[services]
-[services.disqus]
-shortname = "Christian Va."
+
 
 [markup.highlight]
 style = "github-dark"
