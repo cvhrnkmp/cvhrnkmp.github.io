@@ -1,0 +1,85 @@
+/* 1) Reset the top-level counter to 0 at the document root */
+body {
+  
+  counter-reset: h1;  /* initial value is 0 by default */              /* :contentReference[oaicite:0]{index=0} */
+  
+}
+
+/* 2) Each H1 should also reset its own H2 counter */
+h1 {
+  counter-reset: h2;
+}
+
+/* 3) Increment H1 and then show it */
+h1::before {
+  counter-increment: h1;                 /* bump h1 from 0→1 on the first H1 */  /* :contentReference[oaicite:1]{index=1} */
+  /* content: counter(h1) ". "; */             /* now prints “1. ”, “2. ”, etc. */      /* :contentReference[oaicite:2]{index=2} */
+}
+
+/* 4) Same trick for H2: reset H3 on each new H2 */
+h2 {
+  counter-reset: h3;
+}
+h2::before {
+  counter-increment: h2;  
+  content: counter(h2) ". ";  /* prints “1.1 ”, “1.2 ”, “2.1 ”… */
+}
+
+/* 5) (Optional) H3 → 1.2.1, 1.2.2, … */
+h3 {
+  counter-reset: h4;
+}
+h3::before {
+  counter-increment: h3;
+  content: counter(h2) "." counter(h3) " ";
+}
+
+.short-toc {
+  margin: 1.5em 0;
+  padding: 0.75em 1em;
+  background: var(--surface-muted);
+  border-left: 4px solid var(--accent);
+  border-radius: 4px;
+}
+.short-toc ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.short-toc li {
+  margin: 0.25em 0;
+  padding-left: 0.5em;
+}
+.short-toc a {
+  text-decoration: none;
+  color: var(--text);
+}
+.short-toc a:hover {
+  text-decoration: underline;
+}
+
+/* Ensure we’re targeting lists inside .tight */
+.tight > ul,
+.tight > ol,
+.tight ul,
+.tight ol {
+  margin-top: 0 !important;
+  margin-bottom: 0.5em !important;  /* just enough breathing room */
+  padding-left: 1.2em !important;
+  line-height: 1.2 !important;
+  list-style-position: inside !important;
+}
+
+/* Tighter spacing for each <li> */
+.tight li {
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: inherit !important;   /* inherit the 1.2 from the parent ul */
+}
+
+/* If the theme applies extra margins to paragraphs, reset those inside .tight */
+.tight p {
+  margin-top: 0 !important;
+  margin-bottom: 0.2em !important;
+  line-height: inherit !important;
+}

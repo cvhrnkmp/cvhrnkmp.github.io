@@ -21,15 +21,7 @@
   
 
 Hey there, curious AI explorer!
-Ever asked a chatbot a question only to get a completely made-up answer? So did I—until I discovered Retrieval-Augmented Generation (RAG). It’s like giving your AI a research assistant: it fetches real facts from a live document collection before coming up with a response. No more made-up stories!
-
-  What Is RAG, Anyway?
-  
-    
-    Link to heading
-  
-
-Simply put, RAG combines two superpowers:">
+Ever asked a chatbot a question only to get a completely made-up answer? So did I - until I discovered Retrieval-Augmented Generation (RAG). It’s like giving your AI a research assistant: it fetches real facts from a live document collection before coming up with a response. No more made-up stories!">
 <meta name="keywords" content="Large Language Model">
 
 
@@ -37,15 +29,13 @@ Simply put, RAG combines two superpowers:">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Retrieval-Augmented Generation (RAG)">
   <meta name="twitter:description" content="Getting Started with RAG: Your Friendly GuideLink to headingHey there, curious AI explorer!
-Ever asked a chatbot a question only to get a completely made-up answer? So did I—until I discovered Retrieval-Augmented Generation (RAG). It’s like giving your AI a research assistant: it fetches real facts from a live document collection before coming up with a response. No more made-up stories!
-What Is RAG, Anyway?Link to headingSimply put, RAG combines two superpowers:">
+Ever asked a chatbot a question only to get a completely made-up answer? So did I - until I discovered Retrieval-Augmented Generation (RAG). It’s like giving your AI a research assistant: it fetches real facts from a live document collection before coming up with a response. No more made-up stories!">
 
 <meta property="og:url" content="http://localhost:1313/posts/my-second-post/">
   <meta property="og:site_name" content="Christian Vahrenkamp">
   <meta property="og:title" content="Retrieval-Augmented Generation (RAG)">
   <meta property="og:description" content="Getting Started with RAG: Your Friendly GuideLink to headingHey there, curious AI explorer!
-Ever asked a chatbot a question only to get a completely made-up answer? So did I—until I discovered Retrieval-Augmented Generation (RAG). It’s like giving your AI a research assistant: it fetches real facts from a live document collection before coming up with a response. No more made-up stories!
-What Is RAG, Anyway?Link to headingSimply put, RAG combines two superpowers:">
+Ever asked a chatbot a question only to get a completely made-up answer? So did I - until I discovered Retrieval-Augmented Generation (RAG). It’s like giving your AI a research assistant: it fetches real facts from a live document collection before coming up with a response. No more made-up stories!">
   <meta property="og:locale" content="en_us">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
@@ -81,6 +71,11 @@ What Is RAG, Anyway?Link to headingSimply put, RAG combines two superpowers:">
 
 
  
+  
+    
+    <link rel="stylesheet" href="/css/heading-numbers.css" media="screen">
+  
+
 
 
 
@@ -181,10 +176,22 @@ What Is RAG, Anyway?Link to headingSimply put, RAG combines two superpowers:">
           
         </div>
       </header>
-
+      
       <div class="post-content">
         
-        <h1 id="getting-started-with-rag-your-friendly-guide">
+        
+        
+        
+      
+        
+          
+          
+          
+          
+          
+          
+      
+          <h1 id="getting-started-with-rag-your-friendly-guide">
   Getting Started with RAG: Your Friendly Guide
   <a class="heading-link" href="#getting-started-with-rag-your-friendly-guide">
     <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
@@ -192,8 +199,20 @@ What Is RAG, Anyway?Link to headingSimply put, RAG combines two superpowers:">
   </a>
 </h1>
 <p><strong>Hey there, curious AI explorer!</strong></p>
-<p>Ever asked a chatbot a question only to get a completely made-up answer? So did I—until I discovered Retrieval-Augmented Generation (RAG). It’s like giving your AI a research assistant: it fetches real facts from a live document collection before coming up with a response. No more made-up stories!</p>
-<h2 id="what-is-rag-anyway">
+<p>Ever asked a chatbot a question only to get a completely made-up answer? So did I - until I discovered <strong>Retrieval-Augmented Generation (RAG)</strong>. It’s like giving your AI a research assistant: it fetches real facts from a live document collection before coming up with a response. No more made-up stories!</p>
+<nav id="TableOfContents">
+  <ol>
+    <li><a href="#what-is-rag-anyway">What Is RAG, Anyway?</a></li>
+    <li><a href="#how-rag-works-in-3-steps">How RAG Works in 3 Steps</a></li>
+    <li><a href="#core-components-of-rag">Core Components of RAG</a></li>
+    <li><a href="#a-brief-evolution-of-rag">A Brief Evolution of RAG</a></li>
+    <li><a href="#finding-the-perfect-snippets">Finding the Perfect Snippets</a></li>
+    <li><a href="#rag-in-action-mini-example">RAG in Action: Mini Example</a></li>
+    <li><a href="#real-world-use-cases">Real-World Use Cases</a></li>
+    <li><a href="#challenges-to-watch">Challenges to Watch</a></li>
+    <li><a href="#next-steps--tips">Next Steps &amp; Tips</a></li>
+  </ol>
+</nav><h2 id="what-is-rag-anyway">
   What Is RAG, Anyway?
   <a class="heading-link" href="#what-is-rag-anyway">
     <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
@@ -202,8 +221,8 @@ What Is RAG, Anyway?Link to headingSimply put, RAG combines two superpowers:">
 </h2>
 <p>Simply put, RAG combines two superpowers:</p>
 <ol>
-<li>🔍 <strong>Retrieval</strong>: Searches external sources (web pages, PDFs, internal docs) and picks out the most relevant snippets.</li>
-<li>✍️ <strong>Generation</strong>: Feeds those snippets into a language model so it crafts responses grounded in actual information.</li>
+<li>🔍 <strong>Retrieval</strong>: Searches external sources (web pages, PDFs, internal documents) and picks out the most relevant text chunks.</li>
+<li>✍️ <strong>Generation</strong>: Feeds those text chunks as context into a language model so it crafts responses grounded in actual information.</li>
 </ol>
 <p>Think of it as “search” + “chatbot.” Your model still has its own knowledge, but now it double-checks against fresh data every time.</p>
 <h2 id="how-rag-works-in-3-steps">
@@ -216,7 +235,7 @@ What Is RAG, Anyway?Link to headingSimply put, RAG combines two superpowers:">
 <ol>
 <li><strong>Indexing</strong>: Break your docs into bite‑sized chunks and convert each into a vector embedding.</li>
 <li><strong>Retrieval</strong>: Turn the user’s question into an embedding and hunt for the top <em>k</em> chunks.</li>
-<li><strong>Generation</strong>: Prompt the model with the question plus those retrieved chunks, and voilà—an answer backed by real evidence.</li>
+<li><strong>Generation</strong>: Prompt the model with the question plus those retrieved text chunks, and voilà - an answer backed by real evidence.</li>
 </ol>
 <p><img src="/Post2/RAG_Flow.excalidraw.svg" alt="RAG Flow"></p>
 <h2 id="core-components-of-rag">
@@ -227,21 +246,21 @@ What Is RAG, Anyway?Link to headingSimply put, RAG combines two superpowers:">
   </a>
 </h2>
 <p>RAG systems share three foundational building blocks that make them tick:</p>
-<h3 id="1-retrieval">
-  1. Retrieval
-  <a class="heading-link" href="#1-retrieval">
+<h3 id="retrieval">
+  Retrieval
+  <a class="heading-link" href="#retrieval">
     <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
     <span class="sr-only">Link to heading</span>
   </a>
 </h3>
 <ul>
 <li><strong>Indexing &amp; Embedding</strong>: Split documents into chunks and embed each (e.g., Sentence-BERT, OpenAI embeddings).</li>
-<li><strong>Vector Search</strong>: Use FAISS or similar to find semantically closest chunks via cosine similarity.</li>
+<li><strong>Vector Search</strong>: Use FAISS or similar vector databases to find semantically closest chunks via cosine similarity or euclidean distance.</li>
 <li><strong>Keyword &amp; Hybrid Methods</strong>: Incorporate BM25 for keyword matching or fuse vector + BM25 scores to boost recall.</li>
 </ul>
-<h3 id="2-generation">
-  2. Generation
-  <a class="heading-link" href="#2-generation">
+<h3 id="generation">
+  Generation
+  <a class="heading-link" href="#generation">
     <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
     <span class="sr-only">Link to heading</span>
   </a>
@@ -251,19 +270,18 @@ What Is RAG, Anyway?Link to headingSimply put, RAG combines two superpowers:">
 <li><strong>Fusion Methods</strong>: Techniques like Fusion-in-Decoder let the model attend to each snippet before writing.</li>
 <li><strong>Fine-Tuning</strong>: Retrieval-aware fine-tuning aligns model behavior to stick closely to source facts.</li>
 </ul>
-<h3 id="3-augmentation">
-  3. Augmentation
-  <a class="heading-link" href="#3-augmentation">
+<h3 id="augmentation">
+  Augmentation
+  <a class="heading-link" href="#augmentation">
     <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
     <span class="sr-only">Link to heading</span>
   </a>
 </h3>
 <ul>
-<li><strong>Reranking &amp; Filtering</strong>: After retrieval, reorder or trim snippets to emphasize the most relevant bits.</li>
+<li><strong>Reranking &amp; Filtering</strong>: After retrieval, reorder (e.g. lost-in-the-middle) or trim text chunks to emphasize the most relevant bits.</li>
 <li><strong>Context Compression</strong>: Summarize or overlap-reduce chunks to fit prompt length limits.</li>
 <li><strong>Dynamic Prompting</strong>: Use templates or chain-of-thought to guide the model’s reasoning over evidence.</li>
 </ul>
-<hr>
 <h2 id="a-brief-evolution-of-rag">
   A Brief Evolution of RAG
   <a class="heading-link" href="#a-brief-evolution-of-rag">
@@ -273,7 +291,7 @@ What Is RAG, Anyway?Link to headingSimply put, RAG combines two superpowers:">
 </h2>
 <p>RAG didn’t appear fully formed; it’s evolved through three main stages:</p>
 <ol>
-<li><strong>Naive RAG</strong>: The original “retrieve-and-read” pipeline. Easy to set up but often noisy—too many irrelevant snippets can sneak in, and hallucinations still happen.</li>
+<li><strong>Naive RAG</strong>: The original “retrieve-and-read” pipeline. Easy to set up but often noisy - too many irrelevant text chunks can sneak in and hallucinations still happen.</li>
 <li><strong>Advanced RAG</strong>: Adds clever pre- and post-retrieval tricks:
 <ul>
 <li><strong>Query rewriting</strong> (helps search understand your intent better)</li>
@@ -281,7 +299,7 @@ What Is RAG, Anyway?Link to headingSimply put, RAG combines two superpowers:">
 <li><strong>Context compression</strong> (summarizes or trims to fit prompt limits)</li>
 </ul>
 </li>
-<li><strong>Modular RAG</strong>: Picture a LEGO set of interchangeable blocks—vector retrievers, keyword search, memory modules, routing logic, task adapters. You can mix, match, or even fine-tune them jointly for your specific application.</li>
+<li><strong>Modular RAG</strong>: Picture a LEGO set of interchangeable blocks - vector retrievers, keyword search, memory modules, routing logic, task adapters. You can mix, match, or even fine-tune them jointly for your specific application.</li>
 </ol>
 <p>Each step up makes your RAG system sharper, faster, and more reliable.</p>
 <hr>
@@ -302,11 +320,14 @@ What Is RAG, Anyway?Link to headingSimply put, RAG combines two superpowers:">
 </h3>
 <ol>
 <li><strong>Embed</strong> chunks and your query into high-dimensional vectors (e.g., with Sentence‑BERT or OpenAI embeddings).</li>
-<li><strong>Compute</strong> cosine similarity:
-[
-\text{cos}(q, d_i) = \frac{q \cdot d_i}{|q| , |d_i|}
-]</li>
-<li><strong>Pick</strong> the top <em>k</em> closest by score.</li>
+<li><strong>Compute</strong> cosine similarity:</li>
+</ol>
+<p>$$
+cos(q, d_i) = \frac{q \cdot d_i}{|q| \cdot |d_i|}
+$$</p>
+<p>          with $q$ as query and $d_i$ as $i$-th document vector.</p>
+<ol start="3">
+<li><strong>Pick</strong> the top $k$ closest by score in faiss vector database:</li>
 </ol>
 <div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Pseudo-code</span>
 </span></span><span style="display:flex;"><span>D, I <span style="color:#ff7b72;font-weight:bold">=</span> faiss_index<span style="color:#ff7b72;font-weight:bold">.</span>search(query_vec, k<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">5</span>)
@@ -319,12 +340,20 @@ What Is RAG, Anyway?Link to headingSimply put, RAG combines two superpowers:">
   </a>
 </h3>
 <ol>
-<li>Build an <strong>inverted index</strong> that maps terms to chunks.</li>
-<li><strong>Score</strong> chunks with BM25:
-[
-\text{score}(q, d_i) = \sum_{t\in q} \frac{f(t,d_i)(k1+1)}{f(t,d_i) + k1(1 - b + b,|d_i|/avgdl)} \times \log\frac{N - n_t + 0.5}{n_t + 0.5}
-]</li>
-<li><strong>Select</strong> chunks with the highest BM25 scores.</li>
+<li>
+<p>Build an <strong>inverted index</strong> that maps terms to chunks.</p>
+</li>
+<li>
+<p><strong>Score</strong> chunks with BM25:
+$$
+\text{score}(d,q) = \epsilon \cdot \sum_{i=1}^{n} \text{IDF}(q_i) \cdot \frac{f(q_i, d) \cdot (k_1 + 1)}{f(q_i, d) + k_1 \cdot \left(1 - b + b \cdot \frac{l(d)}{\text{avg(l(D))}}\right)}
+$$</p>
+<p>$IDF$ is the inverse term-frequency of $q_i$. <br>
+$f(q_i, d)$ is the term frequency of the term in the document $d$.</p>
+</li>
+<li>
+<p><strong>Select</strong> chunks with the highest BM25 scores.</p>
+</li>
 </ol>
 <h3 id="hybrid-search">
   Hybrid Search
@@ -340,18 +369,7 @@ What Is RAG, Anyway?Link to headingSimply put, RAG combines two superpowers:">
 <li><strong>Fuse</strong> (sum or average).</li>
 <li><strong>Rank</strong> by fused score and grab the top <em>k</em>.</li>
 </ol>
-<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Pseudo-code for hybrid retrieval</span>
-</span></span><span style="display:flex;"><span><span style="color:#ff7b72">def</span> <span style="color:#d2a8ff;font-weight:bold">hybrid_search</span>(text, vec):
-</span></span><span style="display:flex;"><span>    v_scores, v_ids <span style="color:#ff7b72;font-weight:bold">=</span> vec_index<span style="color:#ff7b72;font-weight:bold">.</span>search(vec, k<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">5</span>)
-</span></span><span style="display:flex;"><span>    b_scores, b_ids <span style="color:#ff7b72;font-weight:bold">=</span> bm25<span style="color:#ff7b72;font-weight:bold">.</span>search(text, k<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">5</span>)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    fused <span style="color:#ff7b72;font-weight:bold">=</span> {}
-</span></span><span style="display:flex;"><span>    <span style="color:#ff7b72">for</span> idx, v <span style="color:#ff7b72;font-weight:bold">in</span> zip(v_ids, v_scores): fused[idx] <span style="color:#ff7b72;font-weight:bold">=</span> fused<span style="color:#ff7b72;font-weight:bold">.</span>get(idx, <span style="color:#a5d6ff">0</span>) <span style="color:#ff7b72;font-weight:bold">+</span> normalize(v)
-</span></span><span style="display:flex;"><span>    <span style="color:#ff7b72">for</span> idx, b <span style="color:#ff7b72;font-weight:bold">in</span> zip(b_ids, b_scores): fused[idx] <span style="color:#ff7b72;font-weight:bold">=</span> fused<span style="color:#ff7b72;font-weight:bold">.</span>get(idx, <span style="color:#a5d6ff">0</span>) <span style="color:#ff7b72;font-weight:bold">+</span> normalize(b)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#8b949e;font-style:italic"># Return top chunk IDs</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#ff7b72">return</span> sorted(fused, key<span style="color:#ff7b72;font-weight:bold">=</span>fused<span style="color:#ff7b72;font-weight:bold">.</span>get, reverse<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#79c0ff">True</span>)[:<span style="color:#a5d6ff">5</span>]
-</span></span></code></pre></div><hr>
+<hr>
 <h2 id="rag-in-action-mini-example">
   RAG in Action: Mini Example
   <a class="heading-link" href="#rag-in-action-mini-example">
@@ -405,7 +423,6 @@ What Is RAG, Anyway?Link to headingSimply put, RAG combines two superpowers:">
 <li><strong>Code Generation</strong>: Pull in API docs or code snippets before coding.</li>
 <li><strong>Healthcare &amp; Legal</strong>: Give professionals evidence-backed summaries of guidelines, cases, or medical studies.</li>
 </ul>
-<hr>
 <h2 id="challenges-to-watch">
   Challenges to Watch
   <a class="heading-link" href="#challenges-to-watch">
@@ -477,7 +494,23 @@ What Is RAG, Anyway?Link to headingSimply put, RAG combines two superpowers:">
       </footer>
     </article>
 
-    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css"
+    integrity="sha384-vKruj+a13U8yHIkAyGgK1J3ArTLzrFGBbBc0tDp4ad/EyewESeXE/Iv67Aj8gKZ0" crossorigin="anonymous">
+  
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.js"
+    integrity="sha384-PwRUT/YqbnEjkZO0zZxNqcxACrXe+j766U2amXcgMg5457rve2Y7I6ZJSm2A0mS4" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/contrib/auto-render.min.js"
+    integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"
+    onload="renderMathInElement(document.body,
+      {
+        delimiters: [
+          {left: '$$', right: '$$', display:true},
+          {left: '$', right: '$', display:false},
+          {left: '\\(', right: '\\)', display: false},
+          {left: '\\[', right: '\\]', display: true}
+        ]
+      }
+    );"></script>
   </section>
 
     </div>
@@ -488,9 +521,9 @@ What Is RAG, Anyway?Link to headingSimply put, RAG combines two superpowers:">
     
     2025
      Christian Vahrenkamp 
-    ·
     
-    Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> & <a href="https://github.com/luizdepra/hugo-coder/" target="_blank" rel="noopener">Coder</a>.
+    
+    
     
   </section>
 </footer>

@@ -1,6 +1,9 @@
 +++
  date = '2025-04-18T15:26:23+02:00'
- draft = true
+ draft = false
+ math = true
+ number-sections = true
+ disableComments = false
  title = 'Retrieval-Augmented Generation (RAG)'
 +++
 
@@ -8,7 +11,7 @@
 
 **Hey there, curious AI explorer!**
 
-Ever asked a chatbot a question only to get a completely made-up answer? So did I—until I discovered Retrieval-Augmented Generation (RAG). It’s like giving your AI a research assistant: it fetches real facts from a live document collection before coming up with a response. No more made-up stories!
+Ever asked a chatbot a question only to get a completely made-up answer? So did I - until I discovered **Retrieval-Augmented Generation (RAG)**. It’s like giving your AI a research assistant: it fetches real facts from a live document collection before coming up with a response. No more made-up stories!
 
 
 
@@ -16,8 +19,8 @@ Ever asked a chatbot a question only to get a completely made-up answer? So did 
 
 Simply put, RAG combines two superpowers:
 
-1. 🔍 **Retrieval**: Searches external sources (web pages, PDFs, internal docs) and picks out the most relevant snippets.  
-2. ✍️ **Generation**: Feeds those snippets into a language model so it crafts responses grounded in actual information.
+1. 🔍 **Retrieval**: Searches external sources (web pages, PDFs, internal documents) and picks out the most relevant text chunks.  
+2. ✍️ **Generation**: Feeds those text chunks as context into a language model so it crafts responses grounded in actual information.
 
 Think of it as “search” + “chatbot.” Your model still has its own knowledge, but now it double-checks against fresh data every time.
 
@@ -27,7 +30,7 @@ Think of it as “search” + “chatbot.” Your model still has its own knowle
 
 1. **Indexing**: Break your docs into bite‑sized chunks and convert each into a vector embedding.  
 2. **Retrieval**: Turn the user’s question into an embedding and hunt for the top *k* chunks.
-3. **Generation**: Prompt the model with the question plus those retrieved chunks, and voilà—an answer backed by real evidence.
+3. **Generation**: Prompt the model with the question plus those retrieved text chunks, and voilà - an answer backed by real evidence.
 
 ![RAG Flow](/Post2/RAG_Flow.excalidraw.svg)
 <!--{{< svg "/images/post2/RAG_Flow.excalidraw.svg" >}} -->
@@ -36,33 +39,33 @@ Think of it as “search” + “chatbot.” Your model still has its own knowle
 
 RAG systems share three foundational building blocks that make them tick:
 
-### 1. Retrieval
+### Retrieval
 - **Indexing & Embedding**: Split documents into chunks and embed each (e.g., Sentence-BERT, OpenAI embeddings).
-- **Vector Search**: Use FAISS or similar to find semantically closest chunks via cosine similarity.
+- **Vector Search**: Use FAISS or similar vector databases to find semantically closest chunks via cosine similarity or euclidean distance.
 - **Keyword & Hybrid Methods**: Incorporate BM25 for keyword matching or fuse vector + BM25 scores to boost recall.
 
-### 2. Generation
+### Generation
 - **Prompt Construction**: Combine the user query with retrieved snippets into a single prompt.
 - **Fusion Methods**: Techniques like Fusion-in-Decoder let the model attend to each snippet before writing.
 - **Fine-Tuning**: Retrieval-aware fine-tuning aligns model behavior to stick closely to source facts.
 
-### 3. Augmentation
-- **Reranking & Filtering**: After retrieval, reorder or trim snippets to emphasize the most relevant bits.
+### Augmentation
+- **Reranking & Filtering**: After retrieval, reorder (e.g. lost-in-the-middle) or trim text chunks to emphasize the most relevant bits.
 - **Context Compression**: Summarize or overlap-reduce chunks to fit prompt length limits.
 - **Dynamic Prompting**: Use templates or chain-of-thought to guide the model’s reasoning over evidence.
 
----
+
 
 ## A Brief Evolution of RAG
 
 RAG didn’t appear fully formed; it’s evolved through three main stages:
 
-1. **Naive RAG**: The original “retrieve-and-read” pipeline. Easy to set up but often noisy—too many irrelevant snippets can sneak in, and hallucinations still happen.  
+1. **Naive RAG**: The original “retrieve-and-read” pipeline. Easy to set up but often noisy - too many irrelevant text chunks can sneak in and hallucinations still happen.  
 2. **Advanced RAG**: Adds clever pre- and post-retrieval tricks:
    - **Query rewriting** (helps search understand your intent better)  
    - **Reranking** (surfaces the juiciest snippets)  
    - **Context compression** (summarizes or trims to fit prompt limits)  
-3. **Modular RAG**: Picture a LEGO set of interchangeable blocks—vector retrievers, keyword search, memory modules, routing logic, task adapters. You can mix, match, or even fine-tune them jointly for your specific application.
+3. **Modular RAG**: Picture a LEGO set of interchangeable blocks - vector retrievers, keyword search, memory modules, routing logic, task adapters. You can mix, match, or even fine-tune them jointly for your specific application.
 
 Each step up makes your RAG system sharper, faster, and more reliable.
 
@@ -75,10 +78,14 @@ The secret sauce is picking the right chunks. Here’s how you do it:
 ### Vector Search (Cosine Similarity)
 1. **Embed** chunks and your query into high-dimensional vectors (e.g., with Sentence‑BERT or OpenAI embeddings).  
 2. **Compute** cosine similarity:
-   \[
-     \text{cos}(q, d_i) = \frac{q \cdot d_i}{\|q\| \, \|d_i\|}
-   \]
-3. **Pick** the top *k* closest by score.
+
+$$
+cos(q, d_i) = \frac{q \cdot d_i}{|q| \cdot |d_i|}
+$$
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;with $q$ as query and $d_i$ as $i$-th document vector. 
+
+3. **Pick** the top $k$ closest by score in faiss vector database:
 
 ```python
 # Pseudo-code
@@ -87,12 +94,18 @@ D, I = faiss_index.search(query_vec, k=5)
 ```
 
 ### Keyword Search (BM25)
+
 1. Build an **inverted index** that maps terms to chunks.  
 2. **Score** chunks with BM25:
-   \[
-     \text{score}(q, d_i) = \sum_{t\in q} \frac{f(t,d_i)(k1+1)}{f(t,d_i) + k1(1 - b + b\,|d_i|/avgdl)} \times \log\frac{N - n_t + 0.5}{n_t + 0.5}
-   \]
+$$
+\text{score}(d,q) = \epsilon \cdot \sum_{i=1}^{n} \text{IDF}(q_i) \cdot \frac{f(q_i, d) \cdot (k_1 + 1)}{f(q_i, d) + k_1 \cdot \left(1 - b + b \cdot \frac{l(d)}{\text{avg(l(D))}}\right)}
+$$
+
+    $IDF$ is the inverse term-frequency of $q_i$. \
+    $f(q_i, d)$ is the term frequency of the term in the document $d$.
+
 3. **Select** chunks with the highest BM25 scores.
+
 
 ### Hybrid Search
 Want the best of both worlds? Fuse them:
@@ -102,6 +115,7 @@ Want the best of both worlds? Fuse them:
 3. **Fuse** (sum or average).  
 4. **Rank** by fused score and grab the top *k*.
 
+<!-- 
 ```python
 # Pseudo-code for hybrid retrieval
 def hybrid_search(text, vec):
@@ -115,7 +129,7 @@ def hybrid_search(text, vec):
     # Return top chunk IDs
     return sorted(fused, key=fused.get, reverse=True)[:5]
 ```
-
+-->
 ---
 
 ## RAG in Action: Mini Example
@@ -155,7 +169,7 @@ Boom—a clear, fact-backed answer! 🎉
 - **Code Generation**: Pull in API docs or code snippets before coding.  
 - **Healthcare & Legal**: Give professionals evidence-backed summaries of guidelines, cases, or medical studies.
 
----
+
 
 ## Challenges to Watch
 

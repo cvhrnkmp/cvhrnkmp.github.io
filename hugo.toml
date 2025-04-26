@@ -19,6 +19,12 @@ shortname = "Christian Va."
 [markup.highlight]
 style = "github-dark"
 
+[markup]
+  [markup.tableOfContents]
+    startLevel = 2     # include <h2>
+    endLevel   = 2     # include <h3>
+    ordered    = true  # unordered list
+
 [params]
 author = "Christian Vahrenkamp"
 info="Data Scientist"
@@ -29,6 +35,7 @@ avatarURL ="Image1.png"
 disableDefaultJsScripts = false
 colorScheme = "auto"
 hidecolorschemetoggle = false
+customCSS = ["css/heading-numbers.css"]
 
 # Menu links
 [[menu.main]]

@@ -1,0 +1,71 @@
+{{ define "title" }}
+  {{ .Title }} · {{ .Site.Title }}
+{{ end }}
+{{ define "content" }}
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">
+            <a class="title-link" href="{{ .Permalink | safeURL }}">
+              {{ .Title }}
+            </a>
+          </h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fa-solid fa-calendar" aria-hidden="true"></i>
+              <time datetime="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">
+                {{ .Date | time.Format (.Site.Params.dateFormat | default "January 2, 2006" ) }}
+              </time>
+            </span>
+            <span class="reading-time">
+              <i class="fa-solid fa-clock" aria-hidden="true"></i>
+              {{ i18n "reading_time" .ReadingTime }}
+            </span>
+          </div>
+          {{ with .GetTerms "authors" }}{{ partial "taxonomy/authors.html" . }}{{ end }}
+          {{ with .GetTerms "categories" }}{{ partial "taxonomy/categories.html" . }}{{ end }}
+          {{ with .GetTerms "tags" }}{{ partial "taxonomy/tags.html" . }}{{ end }}
+        </div>
+      </header>
+      
+      <div class="post-content">
+        {{ $toc     := .TableOfContents | safeHTML }}
+        {{ $content := .Content }}
+        {{/* split at the first <h2…> (adjust “h2” if your sections start at h3, etc.) */}}
+        {{ $parts   := split $content "<h2" }}
+      
+        {{ if and $toc (gt (len $parts) 1) }}
+          {{/* everything before the first <h2 */}}
+          {{ $before      := index $parts 0 }}
+          {{/* rebuild the “rest” including the <h2 tag */}}
+          {{ $afterParts  := after 1 $parts }}
+          {{ $afterJoined := delimit $afterParts "<h2" }}
+          {{ $after       := printf "<h2%s" $afterJoined }}
+      
+          {{/* output teaser → TOC → rest */}}
+          {{- printf "%s%s%s" $before $toc $after | safeHTML -}}
+        {{ else }}
+          {{/* no sub-heading (or no TOC) → fall back */}}
+          {{ .Content }}
+        {{ end }}
+      </div>
+
+
+      <footer>
+        {{ partial "posts/series.html" . }}
+        {{ partial "posts/disqus.html" . }}
+        {{ partial "posts/commento.html" . }}
+        {{ partial "posts/utterances.html" . }}
+        {{ partial "posts/giscus.html" . }}
+        {{ partial "posts/mastodon.html" . }}
+        {{ partial "posts/telegram.html" . }}
+        {{ partial "posts/cusdis.html" . }}
+      </footer>
+    </article>
+
+    {{ partial "posts/math.html" . }}
+  </section>
+{{ end }}
