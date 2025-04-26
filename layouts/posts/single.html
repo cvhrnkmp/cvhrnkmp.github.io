@@ -1,7 +1,16 @@
 {{ define "title" }}
   {{ .Title }} · {{ .Site.Title }}
 {{ end }}
+
 {{ define "content" }}
+{{ if and .IsPage (eq .Section "posts") }}
+    <!-- static CSS for heading numbers -->
+    <link
+      rel="stylesheet"
+      href="{{ "css/heading-numbers.css" | relURL }}"
+      media="screen"
+    />
+  {{ end }}
   <section class="container post">
     <article>
       <header>

@@ -33,11 +33,11 @@ avatarURL ="Image1.png"
 disableDefaultJsScripts = false
 colorScheme = "auto"
 hidecolorschemetoggle = false
-customCSS = ["css/heading-numbers.css"]
+#customCSS = ["css/heading-numbers.css"]
 
 
 [params.utterances]
-  repo = "https://github.com/cvhrnkmp/cvhrnkmp.github.io.git" # https://utteranc.es/#heading-repository
+  repo = "https://github.com/cvhrnkmp/cvhrnkmp.github.io" # https://utteranc.es/#heading-repository
   issueTerm = "pathname" # https://utteranc.es/#heading-mapping
   label = "anonymous" # https://utteranc.es/#heading-issue-label
   theme = "preferred-color-scheme" # https://utteranc.es/#heading-theme
