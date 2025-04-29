@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <title>
+  Eine sanfte Einführung in Retrieval Augmented Generation (RAG) · Christian Vahrenkamp
+</title>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+
+
+
+
+<meta name="author" content="Christian Vahrenkamp">
+<meta name="description" content="&ldquo;Retrieval was…?&rdquo; – Ja genau, Retrieval Augmented Generation. Zu Deutsch &ldquo;Abruf‑erweiterte Generierung&rdquo;, aber was steckt dahinter?
+Die bekanntesten Chat-Oberflächen wie ChatGPT oder Claude nutzen große Sprachmodelle (LLMs), die auf enormen Datenmengen trainiert sind. Doch diese Modelle haben Grenzen:
+
+
+Sie können veraltetes oder unvollständiges Wissen enthalten.
+
+
+Sie tendieren zu Halluzinationen, wenn sie Fakten nicht verifizieren können.
+
+
+Interne Unternehmensdaten sind für sie nicht zugänglich – und bleiben es oft aus Sicherheitsgründen.
+
+
+Retrieval Augmented Generation löst diese Herausforderungen auf elegante Weise: Das Modell bezieht in Echtzeit relevante Informationen aus externen oder internen Quellen ein, um seine Antworten auf geprüfte Fakten zu stützen. Dabei fungiert RAG als dynamischer Wissensbrunnen, der sowohl frische Daten (zum Beispiel Quartalsberichte oder aktuelle Gesetzestexte) als auch firmenspezifisches Know-how (etwa interne Leitfäden oder Protokolle) nahtlos in den Antwortprozess integriert. So profitieren Unternehmen von deutlich präziseren, stets aktuellen Ergebnissen – bei gleichzeitiger Wahrung der Vertraulichkeit sensibler Informationen. Zudem macht RAG Wissen und Informationen jederzeit verfügbar, indem es relevante Inhalte direkt bereitstellt und so den Zugriff auf entscheidungsrelevantes Fachwissen erleichtert.">
+<meta name="keywords" content="Large Language Model">
+
+
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Eine sanfte Einführung in Retrieval Augmented Generation (RAG)">
+  <meta name="twitter:description" content="“Retrieval was…?” – Ja genau, Retrieval Augmented Generation. Zu Deutsch “Abruf‑erweiterte Generierung”, aber was steckt dahinter? Die bekanntesten Chat-Oberflächen wie ChatGPT oder Claude nutzen große Sprachmodelle (LLMs), die auf enormen Datenmengen trainiert sind. Doch diese Modelle haben Grenzen:
+Sie können veraltetes oder unvollständiges Wissen enthalten.
+Sie tendieren zu Halluzinationen, wenn sie Fakten nicht verifizieren können.
+Interne Unternehmensdaten sind für sie nicht zugänglich – und bleiben es oft aus Sicherheitsgründen.
+Retrieval Augmented Generation löst diese Herausforderungen auf elegante Weise: Das Modell bezieht in Echtzeit relevante Informationen aus externen oder internen Quellen ein, um seine Antworten auf geprüfte Fakten zu stützen. Dabei fungiert RAG als dynamischer Wissensbrunnen, der sowohl frische Daten (zum Beispiel Quartalsberichte oder aktuelle Gesetzestexte) als auch firmenspezifisches Know-how (etwa interne Leitfäden oder Protokolle) nahtlos in den Antwortprozess integriert. So profitieren Unternehmen von deutlich präziseren, stets aktuellen Ergebnissen – bei gleichzeitiger Wahrung der Vertraulichkeit sensibler Informationen. Zudem macht RAG Wissen und Informationen jederzeit verfügbar, indem es relevante Inhalte direkt bereitstellt und so den Zugriff auf entscheidungsrelevantes Fachwissen erleichtert.">
+
+<meta property="og:url" content="http://localhost:1313/posts/1_rag_introduction/">
+  <meta property="og:site_name" content="Christian Vahrenkamp">
+  <meta property="og:title" content="Eine sanfte Einführung in Retrieval Augmented Generation (RAG)">
+  <meta property="og:description" content="“Retrieval was…?” – Ja genau, Retrieval Augmented Generation. Zu Deutsch “Abruf‑erweiterte Generierung”, aber was steckt dahinter? Die bekanntesten Chat-Oberflächen wie ChatGPT oder Claude nutzen große Sprachmodelle (LLMs), die auf enormen Datenmengen trainiert sind. Doch diese Modelle haben Grenzen:
+Sie können veraltetes oder unvollständiges Wissen enthalten.
+Sie tendieren zu Halluzinationen, wenn sie Fakten nicht verifizieren können.
+Interne Unternehmensdaten sind für sie nicht zugänglich – und bleiben es oft aus Sicherheitsgründen.
+Retrieval Augmented Generation löst diese Herausforderungen auf elegante Weise: Das Modell bezieht in Echtzeit relevante Informationen aus externen oder internen Quellen ein, um seine Antworten auf geprüfte Fakten zu stützen. Dabei fungiert RAG als dynamischer Wissensbrunnen, der sowohl frische Daten (zum Beispiel Quartalsberichte oder aktuelle Gesetzestexte) als auch firmenspezifisches Know-how (etwa interne Leitfäden oder Protokolle) nahtlos in den Antwortprozess integriert. So profitieren Unternehmen von deutlich präziseren, stets aktuellen Ergebnissen – bei gleichzeitiger Wahrung der Vertraulichkeit sensibler Informationen. Zudem macht RAG Wissen und Informationen jederzeit verfügbar, indem es relevante Inhalte direkt bereitstellt und so den Zugriff auf entscheidungsrelevantes Fachwissen erleichtert.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-04-19T15:26:23+02:00">
+    <meta property="article:modified_time" content="2025-04-19T15:26:23+02:00">
+
+
+
+
+<link rel="canonical" href="http://localhost:1313/posts/1_rag_introduction/">
+
+
+<link rel="preload" href="/fonts/fa-brands-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/fa-regular-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin>
+
+
+  
+  
+  <link rel="stylesheet" href="/css/coder.css" media="screen">
+
+
+
+
+
+
+  
+    
+    
+    <link rel="stylesheet" href="/css/coder-dark.css" media="screen">
+  
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="icon" type="image/svg+xml" href="/images/favicon.svg" sizes="any">
+<link rel="icon" type="image/png" href="/images/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/images/favicon-16x16.png" sizes="16x16">
+
+<link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+
+
+</head>
+
+
+
+
+
+
+<body class="preload-transitions colorscheme-auto">
+  
+<div class="float-container">
+    <a id="dark-mode-toggle" class="colorscheme-toggle">
+        <i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i>
+    </a>
+</div>
+
+
+  <main class="wrapper">
+    <nav class="navigation">
+  <section class="container">
+    
+    <a class="navigation-title" href="http://localhost:1313/">
+      Christian Vahrenkamp
+    </a>
+    
+    
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa-solid fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item">
+              <a class="navigation-link " href="/posts/">Blog</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link " href="/about/">About</a>
+            </li>
+          
+        
+        
+      </ul>
+    
+  </section>
+</nav>
+
+
+    <div class="content">
+      
+
+    
+    <link
+      rel="stylesheet"
+      href="/css/heading-numbers.css"
+      media="screen"
+    />
+  
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">
+            <a class="title-link" href="http://localhost:1313/posts/1_rag_introduction/">
+              Eine sanfte Einführung in Retrieval Augmented Generation (RAG)
+            </a>
+          </h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fa-solid fa-calendar" aria-hidden="true"></i>
+              <time datetime="2025-04-19T15:26:23&#43;02:00">
+                April 19, 2025
+              </time>
+            </span>
+            <span class="reading-time">
+              <i class="fa-solid fa-clock" aria-hidden="true"></i>
+              7-minute read
+            </span>
+          </div>
+          
+          
+          
+        </div>
+      </header>
+      
+      <div class="post-content">
+        
+        
+        
+        
+      
+        
+          
+          
+          
+          
+          
+          
+      
+          <p>&ldquo;Retrieval was…?&rdquo; – Ja genau, Retrieval Augmented Generation. Zu Deutsch &ldquo;Abruf‑erweiterte Generierung&rdquo;, aber was steckt dahinter?
+Die bekanntesten Chat-Oberflächen wie ChatGPT oder Claude nutzen große Sprachmodelle (LLMs), die auf enormen Datenmengen trainiert sind. Doch diese Modelle haben Grenzen:</p>
+<ul>
+<li>
+<p>Sie können veraltetes oder unvollständiges Wissen enthalten.</p>
+</li>
+<li>
+<p>Sie tendieren zu Halluzinationen, wenn sie Fakten nicht verifizieren können.</p>
+</li>
+<li>
+<p>Interne Unternehmensdaten sind für sie nicht zugänglich – und bleiben es oft aus Sicherheitsgründen.</p>
+</li>
+</ul>
+<p><strong>Retrieval Augmented Generation</strong> löst diese Herausforderungen auf elegante Weise: Das Modell bezieht in Echtzeit relevante Informationen aus externen oder internen Quellen ein, um seine Antworten auf geprüfte Fakten zu stützen. Dabei fungiert RAG als dynamischer Wissensbrunnen, der sowohl frische Daten (zum Beispiel Quartalsberichte oder aktuelle Gesetzestexte) als auch firmenspezifisches Know-how (etwa interne Leitfäden oder Protokolle) nahtlos in den Antwortprozess integriert. So profitieren Unternehmen von deutlich präziseren, stets aktuellen Ergebnissen – bei gleichzeitiger Wahrung der Vertraulichkeit sensibler Informationen. Zudem macht RAG Wissen und Informationen jederzeit verfügbar, indem es relevante Inhalte direkt bereitstellt und so den Zugriff auf entscheidungsrelevantes Fachwissen erleichtert.</p>
+<p><strong>Folgendes erwartet dich:</strong></p>
+<nav id="TableOfContents">
+  <ol>
+    <li><a href="#die-idee-hinter-rag">Die Idee hinter RAG</a></li>
+    <li><a href="#so-funktioniert-rag-high-level">So funktioniert RAG (High-Level)</a></li>
+    <li><a href="#finetuning-vs-rag">Finetuning vs. RAG</a></li>
+    <li><a href="#typische-anwendungsfälle">Typische Anwendungsfälle</a></li>
+    <li><a href="#zusammenfassung">Zusammenfassung</a></li>
+  </ol>
+</nav><h2 id="die-idee-hinter-rag">
+  Die Idee hinter RAG
+  <a class="heading-link" href="#die-idee-hinter-rag">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p>Die Grundidee von RAG besteht darin, dass ein Sprachmodell nicht allein auf sein vortrainiertes Wissen angewiesen ist, sondern bei jeder Anfrage gezielt in einer umfangreichen Dokumentenbasis nach relevanten Informationen sucht. Statt Hypothesen oder Vermutungen liefert das System exakte Fakten aus Quellen wie Unternehmens-Wikis, juristischen Leitfäden oder Forschungsartikeln. Neue und sich schnell ändernde Daten – etwa Quartalsberichte oder Gesetzesänderungen – werden einfach zur Retrieval-System hinzugefügt, ohne dass das Sprachmodell neu trainiert werden muss. Gleichzeitig bleiben vertrauliche interne Dokumente sicher abgeschottet: Nur freigegebene Passagen fließen in den Kontext ein, sodass Datenschutz und Compliance jederzeit gewahrt sind. Dank spezialisierter Vektor- und Keyword-Suchsysteme skaliert RAG mühelos von kleineren Datenbeständen bis hin zu Millionen von Dokumenten.</p>
+<h2 id="so-funktioniert-rag-high-level">
+  So funktioniert RAG (High-Level)
+  <a class="heading-link" href="#so-funktioniert-rag-high-level">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p>Als erstes muss eine Dokumentenbasis vorbereitet werden. Das heißt Datenquellen identifiezieren und sammeln. Anschließend werden die Daten bereinigt und sinnvoll in Abschnitte (»Chunks«) aufteilt.
+Darauf aufbauend kann ein Retrieval-System mittels Vektoren (Embeddings) und/oder Schlüsselwörter die relevantesten Textpassagen finden und bereitstellen.
+Anschließend wird die Nutzerfrage und die abgerufene Passagen zu einem gemeinsamen Prompt vereint.
+Das Sprachmodell erstellt eine Antwort, die direkt auf den abgerufenen Textpassagen mit Fakten basiert.
+Darüber hinaus gibt es viele Optionen - wie Reranking oder Filterung, die für eine Optimierung hin zu höchster Präzision und Verständlichkeit mobilisiert werden können.</p>
+<h3 id="vector-retrieving">
+  Vector Retrieving
+  <a class="heading-link" href="#vector-retrieving">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<p>Beim Vector Retrieving (auch <em>Dense Search</em> genannt) stehen semantische Ähnlichkeiten im Fokus. Die Vorgehensweise gliedert sich in drei Teilschritte. In der folgenden Grafik sind die Teilschritte im Flowchart benannt und im folgenden aufgegriffen:</p>
+<p><img src="/Post2/RAG_Flow_1.excalidraw.svg" alt="RAG-Flow"></p>
+<p>(1) Zuerst werden <strong>Embeddings</strong> erzeugt: Jeder Dokumentenabschnitt $d_i$ und jede Nutzerfrage $q$ wird mithilfe eines Embedding-Modells (z. B. Sentence-BERT, OpenAI-Embeddings) in einen hochdimensionalen Vektorraum eingebettet - sogenannten Dokumentenvektor $\vec{d_i}$. Ähnliche Inhalte liegen dabei im Vektorraum nahe beieinander.
+Die Vektoren von Dokumentenabschnitten werden in Vektor-Datenbanken abgespeichert. Solche Systeme ermöglichen extrem schnelle Suchanfragen selbst bei sehr großen Datenmengen.</p>
+<p>(2) Die Suche nach den relevantesten Dokumentenabschnitte baut auf die Distanz der Vektoren auf. Für eine eingehende Frage wird ihr Vektor $\vec{q}$ berechnet und in der Datenbank eine kNN-Suche ($k$-Nearest-Neighbors) ausgeführt. Das heißt die Distanz zwischen dem Anfragevektor $\vec{q}$ und den Dokumentenvektoren $\vec{d_i}$ wird berechnet. Je kleiner die Distanz desto ähnlicher ist der Inhalt. Somit werden die $k$-Vektoren mit der höchsten Ähnlichkeit - bzw. dem kleinsten Abstand -  als die relevanteste Textpassagen zurückgegeben.</p>
+<p>(3) Anschließend werdend die relevantestes Textpassagen in ein Prompt als <em>Context</em> hinzugefügt und die Nutzeranfrage als <em>Query</em> hinzugefügt.</p>
+<h3 id="cosine-similarity">
+  Cosine Similarity
+  <a class="heading-link" href="#cosine-similarity">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<p>Durchgesetzt hat sich jedoch die Cosine Similarity als das gängigste Ähnlichkeitsmaß zwischen Vektoren in Retrieval Augmented Generation. Sie berechnet den Winkel zwischen dem Fragevektor $\vec{q}$ und einem Dokumentenvektor $\vec{d_i}$ im Vektorraum:</p>
+<p>$$
+\cos(q, d_i) = \frac{q \cdot d_i}{\lVert q\rVert \cdot \lVert d_i \rVert}
+$$</p>
+<p>Ein Wert nahe 1 zeigt hohe semantische Ähnlichkeit an, ein Wert nahe Null ist neutral und ein Wert nahe -1 zeigt die große Unähnlichkeit. Cosine Similarity bietet den Vorteil, dass das Maß robust gegenüber unterschiedlichen Textlängen ist, da es sich auf die Richtung der Vektoren und nicht auf die Länge konzentriert.</p>
+<h3 id="kurzes-beispiel">
+  Kurzes Beispiel:
+  <a class="heading-link" href="#kurzes-beispiel">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<p>Nehmen wir an, dass der folgende Abschnitt aus der unternehmens-internen Wiki kommt und somit nicht der Öffentlichkeit zur Verfügung steht. Das heißt auch, dass die Information nicht im Trainingsdatensatz von OpenAI (ChatGPT) oder Antrophic (Claude-Modelle) für ihre Modelle enthalten ist. Desweiteren kann es der Fall sein, dass die Informationen erst nach dem Training der Modelle erstanden sind und deswegen nicht im Trainingsdatensatz enthalten ist:</p>
+<p><code>Quartalsbericht Q1 2025: Unser Unternehmen erwirtschaftete im ersten Quartal 2025 einen Umsatz von 12,4 Mio. € und einen Nettogewinn von 1,8 Mio. €.</code></p>
+<p>Und folgende Nutzer-Frage:</p>
+<p><code>&quot;Welche finanziellen Kennzahlen weist unser Unternehmen im Q1 2025 auf?&quot;</code></p>
+<p>So mobilisieren wir das RAG-System:</p>
+<ol>
+<li>
+<p>Die Retrieval-Komponente identifiziert den passenden Textausschnitt aus dem Wiki.</p>
+</li>
+<li>
+<p>Anschließend wird ein kombinierter Prompt erstellt.</p>
+</li>
+</ol>
+<blockquote>
+<p><strong>Kontext</strong>: Quartalsbericht Q1 2025: Unser Unternehmen erwirtschaftete im ersten Quartal 2025 einen Umsatz von 12,4 Mio. € und einen Nettogewinn von 1,8 Mio. €.</p></blockquote>
+<blockquote>
+<p><strong>Frage</strong>: Welche finanziellen Kennzahlen weist unser Unternehmen im Q1 2025 auf?</p></blockquote>
+<blockquote>
+<p><strong>Promptvorlage</strong>:</p></blockquote>
+<blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>Context: {abgerufener Kontext}
+</span></span><span style="display:flex;"><span>Frage: {Ihre Frage} 
+</span></span><span style="display:flex;"><span>Antworten Sie ausschließlich auf Grundlage des kontextuellen Abschnitts.
+</span></span></code></pre></div></blockquote>
+<blockquote>
+<p><strong>Fertiger Prompt</strong>:</p></blockquote>
+<blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>Context: Quartalsbericht Q1 2025: Unser Unternehmen erwirtschaftete im ersten Quartal 2025 einen Umsatz von 12,4 Mio. € und einen Nettogewinn von 1,8 Mio. €.
+</span></span><span style="display:flex;"><span>Frage: Welche finanziellen Kennzahlen weist unser Unternehmen im Q1 2025 auf? 
+</span></span><span style="display:flex;"><span>Antworten Sie ausschließlich auf Grundlage des kontextuellen Abschnitts.
+</span></span></code></pre></div></blockquote>
+<ol start="3">
+<li>Daraufhin generiert das LLM die Antwort und nutzt diesen Kontext für eine präzise Antwort:</li>
+</ol>
+<blockquote>
+<p>„Im ersten Quartal 2025 erzielte unser Unternehmen einen Umsatz von 12,4 Mio. € und einen Nettogewinn von 1,8 Mio. €.&quot;</p></blockquote>
+<p>Dank In-Context Learning greift das Sprachmodell gezielt auf den abgerufenen Abschnitt zurück, um eine verlässliche, faktengestützte Antwort zu liefern.</p>
+<h2 id="finetuning-vs-rag">
+  Finetuning vs. RAG
+  <a class="heading-link" href="#finetuning-vs-rag">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p>&ldquo;Warum macht man dann kein Finetuning von den Modellen auf bspw. firmen-internen Daten?&rdquo; -  eine Frage die ich häufig höre. RAG hat viele Vorteile gegenüber dem Finetuning. Neben der schnelleren Aktualisierung der Daten und informationen, zeigt sich auch eine große Kosteneffizienz. Das Finetuning von Large Language Models ist aufwending und langwierig, dadurch entstehen hohe Kosten. Häufig besitzen Firmen und Institutionen die benötigte Rechenkapazität und müsseen Cloud-Dienste in Anspruch nehmen, sodass die internen Daten in die Cloud geladen werden müssen. Außerdem ist die Modularität in RAG-Systemen höher. Das Sprachmodell zur Generierung der Antwort kann ohne großen Aufwand ausgetauscht werden, soadss immer mit den leistungsstärksten State-of-the-Art Modellen gearbeitet wird. Wird hingegen ein Modell trainiert, muss abgewägt werden, ob es sich betriebswirtschaftlich lohnt, da das neue Modell wieder auf die unternehmens-internen Daten trainiert werden muss.</p>
+<p>Alles im allem bleibt überwiegen die Vorteile von RAG gegenüber Finetuning: Schnelle Aktualisierung der Daten, Kosteneffizient, Datenschutz und Complaince, Modularität und Flexibilität.</p>
+<h2 id="typische-anwendungsfälle">
+  Typische Anwendungsfälle
+  <a class="heading-link" href="#typische-anwendungsf%c3%a4lle">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p>Typische Use Cases sind eine schnelle Suche in unternehmens-internen <strong>Wikis, Handbüchern und Protokollen</strong>. Auch <strong>Kundenservice</strong>-Chatbots können automatisiert auf Basis von Unternehmensrichtlinien spezifische Antworten geben. Durch nachvollziehbare Antworten mit Verweis auf konkrete Gesetze oder Vorschriften kann RAG <strong>Compliance und Audit</strong> Prozesse effizienter und effektiver machen.
+Im Healthcare &amp; Life Science Bereich können <strong>evidenzbasierte Zusammenfassungen</strong> aus aktuellen Studien und Leitlinien erstellt werden. In der <strong>Marktforschung und Business Intelligence</strong> werden aktuelle Reports und Analysen als Datenquelle für Chat-Anwendungen nutzbar.</p>
+<h2 id="zusammenfassung">
+  Zusammenfassung
+  <a class="heading-link" href="#zusammenfassung">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p>Dieser Beitrag stellt dar, wie Sprachmodelle durch Retrieval Augmented Generation um Echtzeit-Wissen ergänzt wird und so präzise, aktuelle und verlässliche Antworten gewährleistet. Es wurden die drei Hauptkomponenten - Retrieval, Generation und Augmentation - vorstellt und dargestellt, wie Vector Retrieving mittels Cosine Similarity relevante Dokumentenabschnitte punktgenau identifiziert. Ein Minimalbeispiel ohne Code zeigte, wie RAG mittel In-Context Learning das Modell befähigt, abgerufene Informationen direkt zu nutzen.</p>
+<h3 id="takeaways">
+  Takeaways
+  <a class="heading-link" href="#takeaways">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<ol>
+<li>RAG kann dynamisch externe Dokumente integrieren und macht Wissen jederzeit verfügbar. Dadurch Halluzinationen reduziert und die Faktizität/Sachlichkeit gesteigert.</li>
+<li>Vorteile von RAG gegenüber Finetuning: Schnelle Aktualisierung der Daten, Kosteneffizient, Datenschutz und Complaince, Modularität und Flexibilität.</li>
+<li>RAG kann eine große Efizienz- und Effektivitätssteigerungen in Unternehmensprozessen sein.</li>
+</ol>
+
+      </div>
+
+
+      <footer>
+        
+
+<section class="see-also">
+  
+    
+    
+    
+  
+</section>
+
+
+        
+        
+        <div class="comments">
+  <script>
+
+    let getTheme = window.localStorage && window.localStorage.getItem("colorscheme");
+    let themeInParams = 'preferred-color-scheme';
+
+    if (getTheme == null) {
+      if (themeInParams !== '' && themeInParams !== 'auto') {
+        getTheme = themeInParams;
+      }
+      else {
+        getTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? "dark" : "light";
+      }
+    }
+
+    let theme = getTheme === 'dark' ? 'github-dark' : 'github-light';
+    let s = document.createElement('script');
+    s.src = 'https://utteranc.es/client.js';
+    s.setAttribute('repo', 'cvhrnkmp\/cvhrnkmp.github.io');
+    s.setAttribute('issue-term', 'pathname');
+    s.setAttribute('theme', theme);
+    s.setAttribute('crossorigin', 'anonymous');
+    s.setAttribute('async', '');
+    document.querySelector('div.comments').innerHTML = '';
+    document.querySelector('div.comments').appendChild(s);
+
+  </script>
+</div>
+        
+        
+        
+        
+      </footer>
+    </article>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css"
+    integrity="sha384-vKruj+a13U8yHIkAyGgK1J3ArTLzrFGBbBc0tDp4ad/EyewESeXE/Iv67Aj8gKZ0" crossorigin="anonymous">
+  
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.js"
+    integrity="sha384-PwRUT/YqbnEjkZO0zZxNqcxACrXe+j766U2amXcgMg5457rve2Y7I6ZJSm2A0mS4" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/contrib/auto-render.min.js"
+    integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"
+    onload="renderMathInElement(document.body,
+      {
+        delimiters: [
+          {left: '$$', right: '$$', display:true},
+          {left: '$', right: '$', display:false},
+          {left: '\\(', right: '\\)', display: false},
+          {left: '\\[', right: '\\]', display: true}
+        ]
+      }
+    );"></script>
+  </section>
+
+    </div>
+
+    <footer class="footer">
+  <section class="container">
+    ©
+    
+    2025
+     Christian Vahrenkamp 
+    
+    
+    
+    
+  </section>
+</footer>
+
+  </main>
+
+  
+
+  
+  
+  <script src="/js/coder.js"></script>
+  
+
+  
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</body>
+</html>

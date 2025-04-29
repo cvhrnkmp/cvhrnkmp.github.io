@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>RAG on Christian Vahrenkamp</title>
+    <link>http://localhost:1313/series/rag/</link>
+    <description>Recent content in RAG on Christian Vahrenkamp</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 19 Apr 2025 15:26:23 +0200</lastBuildDate>
+    <atom:link href="http://localhost:1313/series/rag/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Eine sanfte Einführung in Retrieval Augmented Generation (RAG)</title>
+      <link>http://localhost:1313/posts/1_rag_introduction/</link>
+      <pubDate>Sat, 19 Apr 2025 15:26:23 +0200</pubDate>
+      <guid>http://localhost:1313/posts/1_rag_introduction/</guid>
+      <description>&lt;p&gt;&amp;ldquo;Retrieval was…?&amp;rdquo; – Ja genau, Retrieval Augmented Generation. Zu Deutsch &amp;ldquo;Abruf‑erweiterte Generierung&amp;rdquo;, aber was steckt dahinter?&#xA;Die bekanntesten Chat-Oberflächen wie ChatGPT oder Claude nutzen große Sprachmodelle (LLMs), die auf enormen Datenmengen trainiert sind. Doch diese Modelle haben Grenzen:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Sie können veraltetes oder unvollständiges Wissen enthalten.&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Sie tendieren zu Halluzinationen, wenn sie Fakten nicht verifizieren können.&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Interne Unternehmensdaten sind für sie nicht zugänglich – und bleiben es oft aus Sicherheitsgründen.&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;&lt;strong&gt;Retrieval Augmented Generation&lt;/strong&gt; löst diese Herausforderungen auf elegante Weise: Das Modell bezieht in Echtzeit relevante Informationen aus externen oder internen Quellen ein, um seine Antworten auf geprüfte Fakten zu stützen. Dabei fungiert RAG als dynamischer Wissensbrunnen, der sowohl frische Daten (zum Beispiel Quartalsberichte oder aktuelle Gesetzestexte) als auch firmenspezifisches Know-how (etwa interne Leitfäden oder Protokolle) nahtlos in den Antwortprozess integriert. So profitieren Unternehmen von deutlich präziseren, stets aktuellen Ergebnissen – bei gleichzeitiger Wahrung der Vertraulichkeit sensibler Informationen. Zudem macht RAG Wissen und Informationen jederzeit verfügbar, indem es relevante Inhalte direkt bereitstellt und so den Zugriff auf entscheidungsrelevantes Fachwissen erleichtert.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

@@ -23,6 +23,12 @@ style = "github-dark"
     endLevel   = 2     # include <h3>
     ordered    = true  # unordered list
 
+  [markup.goldmark]
+    [markup.goldmark.parser]
+      [markup.goldmark.parser.attribute]
+        block = true
+        title = true
+
 [params]
 author = "Christian Vahrenkamp"
 info="Data Scientist"
@@ -35,7 +41,12 @@ colorScheme = "auto"
 hidecolorschemetoggle = false
 #customCSS = ["css/heading-numbers.css"]
 
-
+[taxonomies]
+  category = "categories"
+  series = "series"
+  tag = "tags"
+  author = "authors"
+  
 [params.utterances]
   repo = "cvhrnkmp/cvhrnkmp.github.io" # https://utteranc.es/#heading-repository
   issueTerm = "pathname" # https://utteranc.es/#heading-mapping
