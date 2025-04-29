@@ -264,7 +264,7 @@ Darüber hinaus gibt es viele Optionen - wie Reranking oder Filterung, die für 
 <p>(1) Zuerst werden <strong>Embeddings</strong> erzeugt: Jeder Dokumentenabschnitt $d_i$ und jede Nutzerfrage $q$ wird mithilfe eines Embedding-Modells (z. B. Sentence-BERT, OpenAI-Embeddings) in einen hochdimensionalen Vektorraum eingebettet - sogenannten Dokumentenvektor $\vec{d_i}$. Ähnliche Inhalte liegen dabei im Vektorraum nahe beieinander.
 Die Vektoren von Dokumentenabschnitten werden in Vektor-Datenbanken abgespeichert. Solche Systeme ermöglichen extrem schnelle Suchanfragen selbst bei sehr großen Datenmengen.</p>
 <p>(2) Die Suche nach den relevantesten Dokumentenabschnitte baut auf die Distanz der Vektoren auf. Für eine eingehende Frage wird ihr Vektor $\vec{q}$ berechnet und in der Datenbank eine kNN-Suche ($k$-Nearest-Neighbors) ausgeführt. Das heißt die Distanz zwischen dem Anfragevektor $\vec{q}$ und den Dokumentenvektoren $\vec{d_i}$ wird berechnet. Je kleiner die Distanz desto ähnlicher ist der Inhalt. Somit werden die $k$-Vektoren mit der höchsten Ähnlichkeit - bzw. dem kleinsten Abstand -  als die relevanteste Textpassagen zurückgegeben.</p>
-<p>(3) Anschließend werdend die relevantestes Textpassagen in ein Prompt als <em>Context</em> hinzugefügt und die Nutzeranfrage als <em>Query</em> hinzugefügt.</p>
+<p>(3) Anschließend werden die relevantesten Textpassagen in einen Prompt als <em>Context</em> hinzugefügt und die Nutzeranfrage als <em>Query</em> hinzugefügt.</p>
 <h3 id="cosine-similarity">
   Cosine Similarity
   <a class="heading-link" href="#cosine-similarity">
@@ -287,7 +287,7 @@ $$</p>
 <p>Nehmen wir an, dass der folgende Abschnitt aus der unternehmens-internen Wiki kommt und somit nicht der Öffentlichkeit zur Verfügung steht. Das heißt auch, dass die Information nicht im Trainingsdatensatz von OpenAI (ChatGPT) oder Antrophic (Claude-Modelle) für ihre Modelle enthalten ist. Desweiteren kann es der Fall sein, dass die Informationen erst nach dem Training der Modelle erstanden sind und deswegen nicht im Trainingsdatensatz enthalten ist:</p>
 <p><code>Quartalsbericht Q1 2025: Unser Unternehmen erwirtschaftete im ersten Quartal 2025 einen Umsatz von 12,4 Mio. € und einen Nettogewinn von 1,8 Mio. €.</code></p>
 <p>Und folgende Nutzer-Frage:</p>
-<p><code>&quot;Welche finanziellen Kennzahlen weist unser Unternehmen im Q1 2025 auf?&quot;</code></p>
+<p><code>&quot;Welche finanziellen Kennzahlen weist die CVBlog AG im Q1 2025 auf?&quot;</code></p>
 <p>So mobilisieren wir das RAG-System:</p>
 <ol>
 <li>
@@ -298,7 +298,7 @@ $$</p>
 </li>
 </ol>
 <blockquote>
-<p><strong>Kontext</strong>: Quartalsbericht Q1 2025: Unser Unternehmen erwirtschaftete im ersten Quartal 2025 einen Umsatz von 12,4 Mio. € und einen Nettogewinn von 1,8 Mio. €.</p></blockquote>
+<p><strong>Kontext</strong>: Quartalsbericht Q1 2025: Die CVBlog AG erwirtschaftete im ersten Quartal 2025 einen Umsatz von 12,4 Mio. € und einen Nettogewinn von 1,8 Mio. €.</p></blockquote>
 <blockquote>
 <p><strong>Frage</strong>: Welche finanziellen Kennzahlen weist unser Unternehmen im Q1 2025 auf?</p></blockquote>
 <blockquote>
@@ -311,8 +311,8 @@ $$</p>
 <blockquote>
 <p><strong>Fertiger Prompt</strong>:</p></blockquote>
 <blockquote>
-<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>Context: Quartalsbericht Q1 2025: Unser Unternehmen erwirtschaftete im ersten Quartal 2025 einen Umsatz von 12,4 Mio. € und einen Nettogewinn von 1,8 Mio. €.
-</span></span><span style="display:flex;"><span>Frage: Welche finanziellen Kennzahlen weist unser Unternehmen im Q1 2025 auf? 
+<div class="highlight"><pre tabindex="0" style="color:#e6edf3;background-color:#0d1117;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>Context: Quartalsbericht Q1 2025: Die CVBlog AG erwirtschaftete im ersten Quartal 2025 einen Umsatz von 12,4 Mio. € und einen Nettogewinn von 1,8 Mio. €.
+</span></span><span style="display:flex;"><span>Frage: Welche finanziellen Kennzahlen weist die CVBlog AG im Q1 2025 auf? 
 </span></span><span style="display:flex;"><span>Antworten Sie ausschließlich auf Grundlage des kontextuellen Abschnitts.
 </span></span></code></pre></div></blockquote>
 <ol start="3">
@@ -321,6 +321,7 @@ $$</p>
 <blockquote>
 <p>„Im ersten Quartal 2025 erzielte unser Unternehmen einen Umsatz von 12,4 Mio. € und einen Nettogewinn von 1,8 Mio. €.&quot;</p></blockquote>
 <p>Dank In-Context Learning greift das Sprachmodell gezielt auf den abgerufenen Abschnitt zurück, um eine verlässliche, faktengestützte Antwort zu liefern.</p>
+<p>Der <a href="https://chatgpt.com/share/6810f024-c014-8006-9eba-a131640c3297"  class="external-link" target="_blank" rel="noopener">ChatGPT-Verlauf</a> zeigt das Ergebnis. Zuerst wurde die Frage ohne Kontext gestellt und anschließend wurde der <em>fertige Prompt</em> als Anfrage genutzt.</p>
 <h2 id="finetuning-vs-rag">
   Finetuning vs. RAG
   <a class="heading-link" href="#finetuning-vs-rag">
@@ -328,8 +329,11 @@ $$</p>
     <span class="sr-only">Link to heading</span>
   </a>
 </h2>
-<p>&ldquo;Warum macht man dann kein Finetuning von den Modellen auf bspw. firmen-internen Daten?&rdquo; -  eine Frage die ich häufig höre. RAG hat viele Vorteile gegenüber dem Finetuning. Neben der schnelleren Aktualisierung der Daten und informationen, zeigt sich auch eine große Kosteneffizienz. Das Finetuning von Large Language Models ist aufwending und langwierig, dadurch entstehen hohe Kosten. Häufig besitzen Firmen und Institutionen die benötigte Rechenkapazität und müsseen Cloud-Dienste in Anspruch nehmen, sodass die internen Daten in die Cloud geladen werden müssen. Außerdem ist die Modularität in RAG-Systemen höher. Das Sprachmodell zur Generierung der Antwort kann ohne großen Aufwand ausgetauscht werden, soadss immer mit den leistungsstärksten State-of-the-Art Modellen gearbeitet wird. Wird hingegen ein Modell trainiert, muss abgewägt werden, ob es sich betriebswirtschaftlich lohnt, da das neue Modell wieder auf die unternehmens-internen Daten trainiert werden muss.</p>
-<p>Alles im allem bleibt überwiegen die Vorteile von RAG gegenüber Finetuning: Schnelle Aktualisierung der Daten, Kosteneffizient, Datenschutz und Complaince, Modularität und Flexibilität.</p>
+<p>&ldquo;Warum macht man dann kein Finetuning von den Modellen auf bspw. firmen-internen Daten?&rdquo; -  eine Frage die ich häufig höre. RAG hat viele Vorteile gegenüber dem Finetuning. Neben der schnelleren Aktualisierung der Daten und informationen, zeigt sich auch eine große Kosteneffizienz. Das Finetuning von Large Language Models ist aufwending und langwierig, dadurch entstehen hohe Kosten. Häufig besitzen Firmen und Institutionen die benötigte Rechenkapazität und müsseen Cloud-Dienste in Anspruch nehmen, sodass die internen Daten in die Cloud geladen werden müssen. Als Beispiel: Ein 70 Milliarden-Parameter großes Modell wie Llama3.3 benötigt grob 520.000 GPU-Stunden bei Kosten von etwa 1.5 Dollar pro GPUh sind es rund 780.000$ (760.000€) in
+der Cloud - die Trainingsdauer beträgt ca. 43 Tage. Nimmt man an das die Kosten für ein Finetuning nur 10% des Pre-Trainings in Anspruch nimmt, sind es 76.000€ und 4-5 Tage Trainingsaufwand. Doch mal ehrlich, nach 4-5 Tagen sind viele Daten schon wieder alt oder neue sind dazu gekommen und wer möchte schon Tage auf ein aktuelles Modell warten und jede Woche 76.000€ ausgeben?</p>
+<p>Außerdem ist die Modularität in RAG-Systemen höher. Das Sprachmodell zur Generierung der Antwort kann ohne großen Aufwand ausgetauscht werden, soadss immer mit den leistungsstärksten State-of-the-Art Modellen gearbeitet wird. Wird hingegen ein Modell trainiert, muss abgewägt werden, ob es sich betriebswirtschaftlich lohnt, da das neue Modell wieder auf die unternehmens-internen Daten trainiert werden muss.</p>
+<p>Ein großer Vorteil der immer wieder für Interesse sorgt, sind Referenzangaben, worauf die Antwort des Sprachmodels basiert. Das steigert die Akzeptantz und das Verständnis der Antwort bei Anwendern und ist häufig der Grund, warum sich Unternehmen für RAG entscheiden.</p>
+<p>Alles im allem bleibt überwiegen die Vorteile von RAG gegenüber Finetuning: Schnelle Aktualisierung der Daten, Kosteneffizient, Datenschutz und Complaince, Modularität und Flexibilität und Referenzangaben zur Quelle der Antwort.</p>
 <h2 id="typische-anwendungsfälle">
   Typische Anwendungsfälle
   <a class="heading-link" href="#typische-anwendungsf%c3%a4lle">
@@ -357,7 +361,7 @@ Im Healthcare &amp; Life Science Bereich können <strong>evidenzbasierte Zusamme
 <ol>
 <li>RAG kann dynamisch externe Dokumente integrieren und macht Wissen jederzeit verfügbar. Dadurch Halluzinationen reduziert und die Faktizität/Sachlichkeit gesteigert.</li>
 <li>Vorteile von RAG gegenüber Finetuning: Schnelle Aktualisierung der Daten, Kosteneffizient, Datenschutz und Complaince, Modularität und Flexibilität.</li>
-<li>RAG kann eine große Efizienz- und Effektivitätssteigerungen in Unternehmensprozessen sein.</li>
+<li>RAG kann eine große Effizienz- und Effektivitätssteigerungen in Unternehmensprozessen sein.</li>
 </ol>
 
       </div>
