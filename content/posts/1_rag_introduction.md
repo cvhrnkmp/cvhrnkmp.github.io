@@ -67,7 +67,7 @@ Nehmen wir an, dass der folgende Abschnitt aus der unternehmens-internen Wiki ko
 
 Und folgende Nutzer-Frage: 
 
-``` "Welche finanziellen Kennzahlen weist unser Unternehmen im Q1 2025 auf?" ```
+``` "Welche finanziellen Kennzahlen weist die CVBlog AG im Q1 2025 auf?" ```
 
 So mobilisieren wir das RAG-System:
 
@@ -75,7 +75,7 @@ So mobilisieren wir das RAG-System:
 
 2. Anschließend wird ein kombinierter Prompt erstellt.
 
-> **Kontext**: Quartalsbericht Q1 2025: Unser Unternehmen erwirtschaftete im ersten Quartal 2025 einen Umsatz von 12,4 Mio. € und einen Nettogewinn von 1,8 Mio. €.
+> **Kontext**: Quartalsbericht Q1 2025: Die CVBlog AG erwirtschaftete im ersten Quartal 2025 einen Umsatz von 12,4 Mio. € und einen Nettogewinn von 1,8 Mio. €.
 
 > **Frage**: Welche finanziellen Kennzahlen weist unser Unternehmen im Q1 2025 auf?
 
@@ -90,8 +90,8 @@ So mobilisieren wir das RAG-System:
 > **Fertiger Prompt**: 
 
 > ```text
-> Context: Quartalsbericht Q1 2025: Unser Unternehmen erwirtschaftete im ersten Quartal 2025 einen Umsatz von 12,4 Mio. € und einen Nettogewinn von 1,8 Mio. €.
-> Frage: Welche finanziellen Kennzahlen weist unser Unternehmen im Q1 2025 auf? 
+> Context: Quartalsbericht Q1 2025: Die CVBlog AG erwirtschaftete im ersten Quartal 2025 einen Umsatz von 12,4 Mio. € und einen Nettogewinn von 1,8 Mio. €.
+> Frage: Welche finanziellen Kennzahlen weist die CVBlog AG im Q1 2025 auf? 
 > Antworten Sie ausschließlich auf Grundlage des kontextuellen Abschnitts.
 > ```
 
@@ -101,10 +101,14 @@ So mobilisieren wir das RAG-System:
 
 Dank In-Context Learning greift das Sprachmodell gezielt auf den abgerufenen Abschnitt zurück, um eine verlässliche, faktengestützte Antwort zu liefern.
 
+Der [ChatGPT-Verlauf]("https://chatgpt.com/share/6810f024-c014-8006-9eba-a131640c3297") zeigt das Ergebnis. 
+
 ## Finetuning vs. RAG
 "Warum macht man dann kein Finetuning von den Modellen auf bspw. firmen-internen Daten?" -  eine Frage die ich häufig höre. RAG hat viele Vorteile gegenüber dem Finetuning. Neben der schnelleren Aktualisierung der Daten und informationen, zeigt sich auch eine große Kosteneffizienz. Das Finetuning von Large Language Models ist aufwending und langwierig, dadurch entstehen hohe Kosten. Häufig besitzen Firmen und Institutionen die benötigte Rechenkapazität und müsseen Cloud-Dienste in Anspruch nehmen, sodass die internen Daten in die Cloud geladen werden müssen. Außerdem ist die Modularität in RAG-Systemen höher. Das Sprachmodell zur Generierung der Antwort kann ohne großen Aufwand ausgetauscht werden, soadss immer mit den leistungsstärksten State-of-the-Art Modellen gearbeitet wird. Wird hingegen ein Modell trainiert, muss abgewägt werden, ob es sich betriebswirtschaftlich lohnt, da das neue Modell wieder auf die unternehmens-internen Daten trainiert werden muss. 
 
-Alles im allem bleibt überwiegen die Vorteile von RAG gegenüber Finetuning: Schnelle Aktualisierung der Daten, Kosteneffizient, Datenschutz und Complaince, Modularität und Flexibilität.
+Ein großer Vorteil der immer wieder für Interesse sorgt, sind Referenzangaben, worauf die Antwort des Sprachmodels basiert. Das steigert die Akzeptantz und das Verständnis der Antwort bei Anwendern und ist häufig der Grund, warum sich Unternehmen für RAG entscheiden.
+
+Alles im allem bleibt überwiegen die Vorteile von RAG gegenüber Finetuning: Schnelle Aktualisierung der Daten, Kosteneffizient, Datenschutz und Complaince, Modularität und Flexibilität und Referenzangaben zur Quelle der Antwort.
 
 ## Typische Anwendungsfälle
 
@@ -119,4 +123,4 @@ Dieser Beitrag stellt dar, wie Sprachmodelle durch Retrieval Augmented Generatio
 
 1. RAG kann dynamisch externe Dokumente integrieren und macht Wissen jederzeit verfügbar. Dadurch Halluzinationen reduziert und die Faktizität/Sachlichkeit gesteigert.
 2. Vorteile von RAG gegenüber Finetuning: Schnelle Aktualisierung der Daten, Kosteneffizient, Datenschutz und Complaince, Modularität und Flexibilität. 
-3. RAG kann eine große Efizienz- und Effektivitätssteigerungen in Unternehmensprozessen sein.
+3. RAG kann eine große Effizienz- und Effektivitätssteigerungen in Unternehmensprozessen sein.
