@@ -101,7 +101,7 @@ So mobilisieren wir das RAG-System:
 
 Dank In-Context Learning greift das Sprachmodell gezielt auf den abgerufenen Abschnitt zurück, um eine verlässliche, faktengestützte Antwort zu liefern.
 
-Der [ChatGPT-Verlauf]("https://chatgpt.com/share/6810f024-c014-8006-9eba-a131640c3297") zeigt das Ergebnis. 
+Der [ChatGPT-Verlauf](https://chatgpt.com/share/6810f024-c014-8006-9eba-a131640c3297) zeigt das Ergebnis. 
 
 ## Finetuning vs. RAG
 "Warum macht man dann kein Finetuning von den Modellen auf bspw. firmen-internen Daten?" -  eine Frage die ich häufig höre. RAG hat viele Vorteile gegenüber dem Finetuning. Neben der schnelleren Aktualisierung der Daten und informationen, zeigt sich auch eine große Kosteneffizienz. Das Finetuning von Large Language Models ist aufwending und langwierig, dadurch entstehen hohe Kosten. Häufig besitzen Firmen und Institutionen die benötigte Rechenkapazität und müsseen Cloud-Dienste in Anspruch nehmen, sodass die internen Daten in die Cloud geladen werden müssen. Außerdem ist die Modularität in RAG-Systemen höher. Das Sprachmodell zur Generierung der Antwort kann ohne großen Aufwand ausgetauscht werden, soadss immer mit den leistungsstärksten State-of-the-Art Modellen gearbeitet wird. Wird hingegen ein Modell trainiert, muss abgewägt werden, ob es sich betriebswirtschaftlich lohnt, da das neue Modell wieder auf die unternehmens-internen Daten trainiert werden muss. 
