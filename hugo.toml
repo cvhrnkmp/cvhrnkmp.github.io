@@ -28,6 +28,10 @@ style = "github-dark"
       [markup.goldmark.parser.attribute]
         block = true
         title = true
+    [markup.goldmark.renderer]
+      unsafe = true
+    [markup.goldmark.extensions]
+      footnote = true
 
 [params]
 author = "Christian Vahrenkamp"

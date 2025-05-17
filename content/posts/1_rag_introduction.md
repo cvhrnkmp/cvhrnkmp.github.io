@@ -28,7 +28,7 @@ Die Grundidee von RAG besteht darin, dass ein Sprachmodell nicht allein auf sein
 
 ## So funktioniert RAG (High-Level)
 
-Als erstes muss eine Dokumentenbasis vorbereitet werden. Das heißt Datenquellen identifiezieren und sammeln. Anschließend werden die Daten bereinigt und sinnvoll in Abschnitte (»Chunks«) aufteilt.
+Als erstes muss eine Dokumentenbasis vorbereitet werden. Das heißt Datenquellen identifizieren und sammeln. Anschließend werden die Daten bereinigt und sinnvoll in Abschnitte (»Chunks«) aufteilt.
 Darauf aufbauend kann ein Retrieval-System mittels Vektoren (Embeddings) und/oder Schlüsselwörter die relevantesten Textpassagen finden und bereitstellen.
 Anschließend wird die Nutzerfrage und die abgerufene Passagen zu einem gemeinsamen Prompt vereint.
 Das Sprachmodell erstellt eine Antwort, die direkt auf den abgerufenen Textpassagen mit Fakten basiert.
@@ -61,7 +61,7 @@ Ein Wert nahe 1 zeigt hohe semantische Ähnlichkeit an, ein Wert nahe Null ist n
 
 ### Kurzes Beispiel:
 
-Nehmen wir an, dass der folgende Abschnitt aus der unternehmens-internen Wiki kommt und somit nicht der Öffentlichkeit zur Verfügung steht. Das heißt auch, dass die Information nicht im Trainingsdatensatz von OpenAI (ChatGPT) oder Antrophic (Claude-Modelle) für ihre Modelle enthalten ist. Desweiteren kann es der Fall sein, dass die Informationen erst nach dem Training der Modelle erstanden sind und deswegen nicht im Trainingsdatensatz enthalten ist:
+Nehmen wir an, dass der folgende Abschnitt aus der unternehmens-internen Wiki kommt und somit nicht der Öffentlichkeit zur Verfügung steht. Das heißt auch, dass die Information nicht im Trainingsdatensatz von OpenAI (ChatGPT) oder Antrophic (Claude-Modelle) für ihre Modelle enthalten ist. Des Weiteren kann es der Fall sein, dass die Informationen erst nach dem Training der Modelle erstanden sind und deswegen nicht im Trainingsdatensatz enthalten ist:
 
 ``` Quartalsbericht Q1 2025: Unser Unternehmen erwirtschaftete im ersten Quartal 2025 einen Umsatz von 12,4 Mio. € und einen Nettogewinn von 1,8 Mio. €. ```
 
@@ -104,12 +104,12 @@ Dank In-Context Learning greift das Sprachmodell gezielt auf den abgerufenen Abs
 Der [ChatGPT-Verlauf](https://chatgpt.com/share/6810f024-c014-8006-9eba-a131640c3297) zeigt das Ergebnis. Zuerst wurde die Frage ohne Kontext gestellt und anschließend wurde der *fertige Prompt* als Anfrage genutzt.
 
 ## Finetuning vs. RAG
-"Warum macht man dann kein Finetuning von den Modellen auf bspw. firmen-internen Daten?" -  eine Frage die ich häufig höre. RAG hat viele Vorteile gegenüber dem Finetuning. Neben der schnelleren Aktualisierung der Daten und informationen, zeigt sich auch eine große Kosteneffizienz. Das Finetuning von Large Language Models ist aufwending und langwierig, dadurch entstehen hohe Kosten. Häufig besitzen Firmen und Institutionen die benötigte Rechenkapazität und müsseen Cloud-Dienste in Anspruch nehmen, sodass die internen Daten in die Cloud geladen werden müssen. Als Beispiel: Ein 70 Milliarden-Parameter großes Modell wie Llama3.3 benötigt grob 520.000 GPU-Stunden bei Kosten von etwa 1.5 Dollar pro GPUh sind es rund 780.000$ (760.000€) in 
+"Warum macht man dann kein Finetuning von den Modellen auf bspw. firmen-internen Daten?" -  eine Frage die ich häufig höre. RAG hat viele Vorteile gegenüber dem Finetuning. Neben der schnelleren Aktualisierung der Daten und Informationen, zeigt sich auch eine große Kosteneffizienz. Das Finetuning von Large Language Models ist aufwendig und langwierig, dadurch entstehen hohe Kosten. Häufig besitzen Firmen und Institutionen die benötigte Rechenkapazität und müssen Cloud-Dienste in Anspruch nehmen, sodass die internen Daten in die Cloud geladen werden müssen. Als Beispiel: Ein 70 Milliarden-Parameter großes Modell wie Llama3.3 benötigt grob 520.000 GPU-Stunden bei Kosten von etwa 1.5 Dollar pro GPUh sind es rund 780.000$ (760.000€) in 
 der Cloud - die Trainingsdauer beträgt ca. 43 Tage. Nimmt man an das die Kosten für ein Finetuning nur 10% des Pre-Trainings in Anspruch nimmt, sind es 76.000€ und 4-5 Tage Trainingsaufwand. Doch mal ehrlich, nach 4-5 Tagen sind viele Daten schon wieder alt oder neue sind dazu gekommen und wer möchte schon Tage auf ein aktuelles Modell warten und jede Woche 76.000€ ausgeben?
 
-Außerdem ist die Modularität in RAG-Systemen höher. Das Sprachmodell zur Generierung der Antwort kann ohne großen Aufwand ausgetauscht werden, soadss immer mit den leistungsstärksten State-of-the-Art Modellen gearbeitet wird. Wird hingegen ein Modell trainiert, muss abgewägt werden, ob es sich betriebswirtschaftlich lohnt, da das neue Modell wieder auf die unternehmens-internen Daten trainiert werden muss. 
+Außerdem ist die Modularität in RAG-Systemen höher. Das Sprachmodell zur Generierung der Antwort kann ohne großen Aufwand ausgetauscht werden, sodass immer mit den leistungsstärksten State-of-the-Art Modellen gearbeitet wird. Wird hingegen ein Modell trainiert, muss abgewägt werden, ob es sich betriebswirtschaftlich lohnt, da das neue Modell wieder auf die unternehmens-internen Daten trainiert werden muss. 
 
-Ein großer Vorteil der immer wieder für Interesse sorgt, sind Referenzangaben, worauf die Antwort des Sprachmodels basiert. Das steigert die Akzeptantz und das Verständnis der Antwort bei Anwendern und ist häufig der Grund, warum sich Unternehmen für RAG entscheiden.
+Ein großer Vorteil der immer wieder für Interesse sorgt, sind Referenzangaben, worauf die Antwort des Sprachmodels basiert. Das steigert die Akzeptanz und das Verständnis der Antwort bei Anwendern und ist häufig der Grund, warum sich Unternehmen für RAG entscheiden.
 
 Alles im allem bleibt überwiegen die Vorteile von RAG gegenüber Finetuning: Schnelle Aktualisierung der Daten, Kosteneffizient, Datenschutz und Complaince, Modularität und Flexibilität und Referenzangaben zur Quelle der Antwort.
 
@@ -122,7 +122,7 @@ Im Healthcare & Life Science Bereich können **evidenzbasierte Zusammenfassungen
 
 Dieser Beitrag stellt dar, wie Sprachmodelle durch Retrieval Augmented Generation um Echtzeit-Wissen ergänzt wird und so präzise, aktuelle und verlässliche Antworten gewährleistet. Es wurden die drei Hauptkomponenten - Retrieval, Generation und Augmentation - vorstellt und dargestellt, wie Vector Retrieving mittels Cosine Similarity relevante Dokumentenabschnitte punktgenau identifiziert. Ein Minimalbeispiel ohne Code zeigte, wie RAG mittel In-Context Learning das Modell befähigt, abgerufene Informationen direkt zu nutzen.
 
-### Takeaways
+### Take Aways
 
 1. RAG kann dynamisch externe Dokumente integrieren und macht Wissen jederzeit verfügbar. Dadurch Halluzinationen reduziert und die Faktizität/Sachlichkeit gesteigert.
 2. Vorteile von RAG gegenüber Finetuning: Schnelle Aktualisierung der Daten, Kosteneffizient, Datenschutz und Complaince, Modularität und Flexibilität. 

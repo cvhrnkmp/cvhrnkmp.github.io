@@ -3,12 +3,21 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>http://localhost:1313/</loc>
-    <lastmod>2025-04-19T15:26:23+02:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/posts/1_rag_introduction/</loc>
-    <lastmod>2025-04-19T15:26:23+02:00</lastmod>
+    <lastmod>2025-05-03T08:26:23+02:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/posts/</loc>
+    <lastmod>2025-05-03T08:26:23+02:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/posts/3_pre_post_retrieving/</loc>
+    <lastmod>2025-05-03T08:26:23+02:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/posts/4_time_aware_retriever/</loc>
+    <lastmod>2025-05-03T08:26:23+02:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/posts/2_basic_retriever_methods/</loc>
+    <lastmod>2025-04-30T15:26:23+02:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/posts/1_rag_introduction/</loc>
     <lastmod>2025-04-19T15:26:23+02:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/series/rag/</loc>

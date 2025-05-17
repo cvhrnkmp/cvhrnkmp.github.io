@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <title>
+  Retriever: Das Herz von Retrieval Augmented Generation · Christian Vahrenkamp
+</title>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+
+
+
+
+<meta name="author" content="Christian Vahrenkamp">
+<meta name="description" content="Das Herz von Retrieval Augmented Generation ist der Retriever, welcher die relevantesten bzw. ähnlichsten Textpassage zu einer Anfrage finden soll. Soll - ja richtig gehört, dass ist nicht immer der Fall. Retriever haben nicht nur Stärken, sondern auch Schwächen. Deswegen wurden im Laufe der Zeit verschiedene Retriever-Methoden entwickelt und davon haben sich zwei im Wesentlichen durchgesetzt: Vektor-Suche und Keyword-Suche. Diese beiden Verfahren können jetzt unterschiedlich miteinander kombiniert und unterschiedlich ausgeführt werden.">
+<meta name="keywords" content="Large Language Model">
+
+
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Retriever: Das Herz von Retrieval Augmented Generation">
+  <meta name="twitter:description" content="Das Herz von Retrieval Augmented Generation ist der Retriever, welcher die relevantesten bzw. ähnlichsten Textpassage zu einer Anfrage finden soll. Soll - ja richtig gehört, dass ist nicht immer der Fall. Retriever haben nicht nur Stärken, sondern auch Schwächen. Deswegen wurden im Laufe der Zeit verschiedene Retriever-Methoden entwickelt und davon haben sich zwei im Wesentlichen durchgesetzt: Vektor-Suche und Keyword-Suche. Diese beiden Verfahren können jetzt unterschiedlich miteinander kombiniert und unterschiedlich ausgeführt werden.">
+
+<meta property="og:url" content="http://localhost:1313/posts/2_basic_retriever_methods/">
+  <meta property="og:site_name" content="Christian Vahrenkamp">
+  <meta property="og:title" content="Retriever: Das Herz von Retrieval Augmented Generation">
+  <meta property="og:description" content="Das Herz von Retrieval Augmented Generation ist der Retriever, welcher die relevantesten bzw. ähnlichsten Textpassage zu einer Anfrage finden soll. Soll - ja richtig gehört, dass ist nicht immer der Fall. Retriever haben nicht nur Stärken, sondern auch Schwächen. Deswegen wurden im Laufe der Zeit verschiedene Retriever-Methoden entwickelt und davon haben sich zwei im Wesentlichen durchgesetzt: Vektor-Suche und Keyword-Suche. Diese beiden Verfahren können jetzt unterschiedlich miteinander kombiniert und unterschiedlich ausgeführt werden.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-04-30T15:26:23+02:00">
+    <meta property="article:modified_time" content="2025-04-30T15:26:23+02:00">
+
+
+
+
+<link rel="canonical" href="http://localhost:1313/posts/2_basic_retriever_methods/">
+
+
+<link rel="preload" href="/fonts/fa-brands-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/fa-regular-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin>
+
+
+  
+  
+  <link rel="stylesheet" href="/css/coder.css" media="screen">
+
+
+
+
+
+
+  
+    
+    
+    <link rel="stylesheet" href="/css/coder-dark.css" media="screen">
+  
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="icon" type="image/svg+xml" href="/images/favicon.svg" sizes="any">
+<link rel="icon" type="image/png" href="/images/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/images/favicon-16x16.png" sizes="16x16">
+
+<link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+
+
+</head>
+
+
+
+
+
+
+<body class="preload-transitions colorscheme-auto">
+  
+<div class="float-container">
+    <a id="dark-mode-toggle" class="colorscheme-toggle">
+        <i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i>
+    </a>
+</div>
+
+
+  <main class="wrapper">
+    <nav class="navigation">
+  <section class="container">
+    
+    <a class="navigation-title" href="http://localhost:1313/">
+      Christian Vahrenkamp
+    </a>
+    
+    
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa-solid fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item">
+              <a class="navigation-link " href="/posts/">Blog</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link " href="/about/">About</a>
+            </li>
+          
+        
+        
+      </ul>
+    
+  </section>
+</nav>
+
+
+    <div class="content">
+      
+
+    
+    <link
+      rel="stylesheet"
+      href="/css/heading-numbers.css"
+      media="screen"
+    />
+  
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">
+            <a class="title-link" href="http://localhost:1313/posts/2_basic_retriever_methods/">
+              Retriever: Das Herz von Retrieval Augmented Generation
+            </a>
+          </h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fa-solid fa-calendar" aria-hidden="true"></i>
+              <time datetime="2025-04-30T15:26:23&#43;02:00">
+                April 30, 2025
+              </time>
+            </span>
+            <span class="reading-time">
+              <i class="fa-solid fa-clock" aria-hidden="true"></i>
+              6-minute read
+            </span>
+          </div>
+          
+          
+          
+        </div>
+      </header>
+      
+      <div class="post-content">
+        
+        
+        
+        
+      
+        
+          
+          
+          
+          
+          
+          
+      
+          <p>Das Herz von Retrieval Augmented Generation ist der Retriever, welcher die relevantesten bzw. ähnlichsten Textpassage zu einer Anfrage finden soll. <em>Soll</em> - ja richtig gehört, dass ist nicht immer der Fall. Retriever haben nicht nur Stärken, sondern auch Schwächen. Deswegen wurden im Laufe der Zeit verschiedene Retriever-Methoden entwickelt und davon haben sich zwei im Wesentlichen durchgesetzt: Vektor-Suche und Keyword-Suche. Diese beiden Verfahren können jetzt unterschiedlich miteinander kombiniert und unterschiedlich ausgeführt werden.</p>
+<p>Der folgende Beitrag stellt die grundlegenden Retriever-Methoden und die Möglichkeit der Kombination vor.</p>
+<nav id="TableOfContents">
+  <ol>
+    <li><a href="#vektor-suche">Vektor-Suche</a></li>
+    <li><a href="#keyword-suche">Keyword Suche</a></li>
+    <li><a href="#hybride-suche">Hybride Suche</a></li>
+    <li><a href="#hyde-suche">HyDE Suche</a></li>
+    <li><a href="#best-practice-hybrid-hyde-suche">Best Practice: Hybrid HyDE Suche</a></li>
+    <li><a href="#diskussion">Diskussion</a></li>
+    <li><a href="#zusammenfassung">Zusammenfassung</a></li>
+  </ol>
+</nav><h2 id="vektor-suche">
+  Vektor-Suche
+  <a class="heading-link" href="#vektor-suche">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p>Die Vektor-Suche basiert auf die Semantik von Text. Semantik ist einfach gesagt, die Bedeutung. Das heißt, wenn zwei Texte eine hohe semantische Ähnlichkeit haben, dann ist die Bedeutung nahezu die Gleiche. Andererseits bedeutet eine hohe semantische Ungleichheit, eine unterschiedliche Bedeutung.</p>
+<p><strong>Beispiel:</strong></p>
+<ol>
+<li>In dem Satz <em>Ich gehe zur Bank</em> bezieht sich das Wort <em>Bank</em> auf ein Geldinstitut.</li>
+<li>In dem Satz <em>Ich setze mich auf die Bank</em> bezieht sich das Wort <em>Bank</em> auf eine Sitzgelegenheit.</li>
+</ol>
+<p>Das Beispiel zeigt die Mehrdeutigkeit von dem Wort <em>Bank</em>. Die Semantik stellt die Bedeutung des Wortes dar, wie es im Kontext verstanden wird. Ohne semantische Kenntnisse können Missverständnisse auftreten. Klarheit und Präzision werden durch die Semantik in der Sprache hergestellt, sodass Informationen in einem gegebenen Kontext verstanden werden.</p>
+<h3 id="prozess">
+  Prozess
+  <a class="heading-link" href="#prozess">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<p>Bei der Vektor-Suche werden als erstes alle Dokumentenabschnitte in die Vektor-Repräsentation $D \in \{d_0, d_1, &hellip;, d_{n-1}, d_n \}$ gebracht, wobei $d_i$ ein Dokumentenabschnitt entspricht und $n$ die Menge aller Dokumentenabschnitt repräsentiert. Anschließend wird jede Anfrage (Query) in einen Vektor $q$ umgewandelt. Somit stellen die Vektoren von $D$ die Dokumentenabschnitte als Punkt in einem Raum dar - gleiches gilt auch für den Vektor $q$ der Anfrage. Je kleiner die Distanz zwischen zwei Punkten ist, desto ähnlicher ist der Inhalt, welcher durch die Vektoren repräsentiert werden - unabhängig ob es sich um die Distanz zwischen zwei Dokumentenabschnitten aus $D$ handelt oder um die Distanz zwischen einem Vektor $d_i$ aus $D$ und den Anfragevektor $q$ handelt.</p>
+<p>Die große Quizfrage ist: Wie wird die Distanz gemessen?</p>
+<p>Die folgende Abbildung zeigt drei unterschiedliche Verfahren, um die Distanz zwischen zwei Vektoren zu ermitteln.</p>
+<p><img src="/2_Retriever/Similarity_metrics_qdrant.png" alt="Vector distance metrics"></p>
+<p style="text-align: center;">Image by <a href = 'https://qdrant.tech/blog/what-is-vector-similarity/'> Qdrant </a></p>
+<p>Dabei finden im NLP-Umfeld das <em>Dot Product</em> und die <em>Cosine Similarity</em> die häufigste Anwendung. Das Dot-Product wird oft für $k$-nearest-neighbor Aufgaben genutzt, um die $k$ naheliegendsten Punkte zu finden. Gleiches kann auf die Euclidean Distance übertragen werden. Die Cosine Similarity findet in Information Retrieval Systemen wie RAG ihre Anwendung.</p>
+<p>Für die <strong>Euclidean Distance</strong> gilt:</p>
+<p>$$
+d(q, d_i) = \sqrt{\sum_{j=1}^{n}(d_{ij} - q_j)^2}
+$$
+wobei $n$ die Dimension der Vektoren darstellt.</p>
+<p>Für das <strong>Dot Product</strong> bzw. <strong>Inner Product</strong> gilt:</p>
+<p>$$
+\begin{equation*}
+\begin{aligned}
+d(q, d_i) &amp;= q \cdot d_i \newline
+&amp;= \sum_{j=1}^{n}{q_j \cdot d_{ij}}
+\end{aligned}
+\end{equation*}
+$$
+wobei $n$ die Dimension der Vektoren darstellt.</p>
+<p>Für die <strong>Cosine Similarity</strong> gilt:</p>
+<p>$$
+cos(q, d_i) = \frac{q \cdot d_i}{|q| \cdot |d_i|}
+$$</p>
+<p>Wie der aufmerksame Leser wahrscheinlich schon festgestellt hat, ist die Cosine Similarity die normalisierte Distanz des Inner Products. Damit ist die Anwendung der Cosine Similarity in Szenarien mit unterschiedlichen langen Vektoren empfehlenswert, da es eine bessere Aussagekraft als das Inner Product gibt.</p>
+<h2 id="keyword-suche">
+  Keyword Suche
+  <a class="heading-link" href="#keyword-suche">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p>Im Vergleich zur Vektor-Suche konzentriert sich die Keyword-Suche vollständig auf den Inhalt ohne deren semantische Repräsentation zu betrachten. Das heißt, die Suche hebt Stichwörter aus der Query hervor, welche große Relevanz haben und damit auch in den Dokumentenabschnitten eine wesentliche Rolle spielen. Dabei hat sich der <a href="https://www.cs.otago.ac.nz/homepages/andrew/papers/2014-2.pdf"  class="external-link" target="_blank" rel="noopener">BM25 Algorithmus von Okapi</a> durchgesetzt:
+$$
+\begin{equation*}
+\text{score}(d_i,q) = \epsilon \cdot \sum_{j=1}^{n} \text{IDF}(q_j) \cdot \frac{f(q_j, d_i) \cdot (k_1 + 1)}{f(q_j, d_i) + k_1 \cdot \left(1 - b + b \cdot \frac{l(d_i)}{\text{avg(l(D))}}\right)}
+\end{equation*}
+$$</p>
+<p>mit $\text{IDF}$ als <em>inverse term-frequency</em> - zu deutsch inverse Begriffshäufigkeit - von dem $j$-ten Wort in $q$ und $f(q_j, d)$ ist die Begriffshäufigkeit des Wortes in den Dokument $d_i$.</p>
+<p>$\epsilon$, $k_1$ und $b$ sind Hyperparameter, welche bei Bedarf optimiert werden können - ansonsten gilt für $\epsilon = 0.25$, $k_1 = 1.5$ und $b=0.75$.</p>
+<p>Was kann aus der Formel interpretiert werden?</p>
+<ol>
+<li>Je länger der Dokumentenabschnitt ist, desto kleiner der Score. Das heißt, BM25 bestraft lange Dokumentenabschnitte.</li>
+<li>Je häufiger ein Wort im Dokumentenabschnitt $d_i$ vorkommt, desto kleiner wird der Score. Somit bestraft BM25 Wörter die sehr häufig vorkommen wie <em>der</em>, <em>die</em>, <em>das</em>.</li>
+</ol>
+<p>Somit zielt der Algorithmus auf kurze Abschnitte ab und hohe Begriffsrelevanz innerhalb das Abschnittes. Das führt im besten Fall dazu, dass sehr präzise und auf den Punkt gebrachte Textabschnitte mit den höchsten Score gewertet werden und im Kontext des Prompts bereitgestellt werden. Daraufhin kann das LLM eine gute Aussage treffen, da häufig mit langen und unpräzisen Textabschnitten irrelevanter Inhalt zurückgegeben wird.</p>
+<h2 id="hybride-suche">
+  Hybride Suche
+  <a class="heading-link" href="#hybride-suche">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p>Die hybride Suche nach dem besten und relevantesten Text Passagen, die die Anfrage beantworten kann, vereint die Vektor-Suche und die Keyword-Suche. Dabei werden die Retriever Methoden parallel durchgeführt. Anschließend werden die Scores je Dokumentabschnitt $d_i$ zusammengefasst. Somit werden die Vorteile beider Suchverfahren kombiniert und die Schwächen geglättet. Denn die semantische Suche selbst berücksichtigt die wichtigen Schlüsselwörter aus der Query nicht, doch die Keyword-Suche. Andererseits lässt die Keyword-Suche die semantische Beziehung zwischen der Query und den Dokumentenabschnitte außer acht, doch die Vektor-Suche bildet die semantische Suche voll ab.</p>
+<h2 id="hyde-suche">
+  HyDE Suche
+  <a class="heading-link" href="#hyde-suche">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p>Ein weiterer Schritt ist der <em>Hypothecial Document Embeddings</em> Ansatz von <a href="https://arxiv.org/pdf/2212.10496"  class="external-link" target="_blank" rel="noopener">Gao et. al</a>. Die Idee ist ein hypothetische Dokument zu generieren, welches die Muster eines relevanten Dokumentes erfasst und damit eine hohe Ähnlichkeit zu den geforderten/gesuchten Dokumentenabschnitte hat. Auf faktische Korrektheit wird dabei verzichtet, da es nur das Muster der gesuchten Abschnitte repräsentieren soll. Dabei wird als erstes ein LLM aufgefordert zu der Anfrage ein hypothetisches Dokument $d_h$ zu generieren, welches die Frage beantworten kann. Anstatt die Retriever mit der originalen Anfrage zu füttern, wird das hypothetische Dokument $d_h$ den Retriever Methoden zugeführt.</p>
+<h2 id="best-practice-hybrid-hyde-suche">
+  Best Practice: Hybrid HyDE Suche
+  <a class="heading-link" href="#best-practice-hybrid-hyde-suche">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p><a href="https://arxiv.org/pdf/2407.01219"  class="external-link" target="_blank" rel="noopener">Wang et. al.</a> hat einige Experimente durchgeführt, um die beste Kombination aus Retriever Methoden finden. Dabei stellte er unter Laborbedingungen fest, dass die Variation aus der HyDE Suche kombiniert mit der hybriden Suche, die besten Ergebnisse produziert.</p>
+<h2 id="diskussion">
+  Diskussion
+  <a class="heading-link" href="#diskussion">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p><em>Welche Suchmethode ist denn jetzt die Beste?</em> - das ist abhängig vom Usecase. Denn die Vektorsuche ist stark von dem Verfahren, wie die Vektorrepräsentation der Abschnitte hergestellt wird, abhängig. Wenn dazu ein Encoder Modell verwendet wird, muss das Model, die Semantik verstehen. Da es sich häufig um interne Dokumente handelt, domain-spezifisch und nicht in englischer Sprache, kann es zur Performance einbußen kommen. Daher ist eine Kombination mit der Keysearch ein guter Weg, um Fachthermini gut abbilden zu können.</p>
+<p>Geht es darum schnelle Antworten zu erzeugen, muss abgewägt werden, ob der Einsatz von HyDE gewollt ist. Zum Erzeugen eines hypothetischen Dokuments ist ein LLM-Call nötig, der wiederum Zeit in Anspruch nimmt.</p>
+<h2 id="zusammenfassung">
+  Zusammenfassung
+  <a class="heading-link" href="#zusammenfassung">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p>Gemeinsam haben wir beleuchtet, wie nach den relevantesten Passagen in einem großen Datenkorpus gesucht wird. Die Methodiken zeigen Stärken und Schwächen. Eine Kombination aus den Methoden kann zu hervorragenden Synergie-Effekten führen. Für meine Projekte bedeutete es bisher immer <em>Testen, Testen, Testen</em>, um das richtige Verfahren zur Suche passender Passagen zu finden. Doch eine Frage bleibt: Wenn es im System mehrere Retriever gibt, wie wird es zu einem Ergebnis zusammengefasst?</p>
+<h3 id="take-aways">
+  Take Aways
+  <a class="heading-link" href="#take-aways">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<ol>
+<li>Es gibt viele verschiedener Retriever Methoden mit unterschiedlichen Stärken.</li>
+<li>Die Retriever Methoden können beliebig kombiniert werden.</li>
+<li>Es muss für jeden Use Case getestet und entschieden werden. <br></li>
+<li>Die hybride Suche ist ein guter Start, da es Synergie-Effekte mit Vektor- und Keyword-Suche schafft.</li>
+</ol>
+
+      </div>
+
+
+      <footer>
+        
+
+
+        
+        
+        <div class="comments">
+  <script>
+
+    let getTheme = window.localStorage && window.localStorage.getItem("colorscheme");
+    let themeInParams = 'preferred-color-scheme';
+
+    if (getTheme == null) {
+      if (themeInParams !== '' && themeInParams !== 'auto') {
+        getTheme = themeInParams;
+      }
+      else {
+        getTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? "dark" : "light";
+      }
+    }
+
+    let theme = getTheme === 'dark' ? 'github-dark' : 'github-light';
+    let s = document.createElement('script');
+    s.src = 'https://utteranc.es/client.js';
+    s.setAttribute('repo', 'cvhrnkmp\/cvhrnkmp.github.io');
+    s.setAttribute('issue-term', 'pathname');
+    s.setAttribute('theme', theme);
+    s.setAttribute('crossorigin', 'anonymous');
+    s.setAttribute('async', '');
+    document.querySelector('div.comments').innerHTML = '';
+    document.querySelector('div.comments').appendChild(s);
+
+  </script>
+</div>
+        
+        
+        
+        
+      </footer>
+    </article>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css"
+    integrity="sha384-vKruj+a13U8yHIkAyGgK1J3ArTLzrFGBbBc0tDp4ad/EyewESeXE/Iv67Aj8gKZ0" crossorigin="anonymous">
+  
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.js"
+    integrity="sha384-PwRUT/YqbnEjkZO0zZxNqcxACrXe+j766U2amXcgMg5457rve2Y7I6ZJSm2A0mS4" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/contrib/auto-render.min.js"
+    integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"
+    onload="renderMathInElement(document.body,
+      {
+        delimiters: [
+          {left: '$$', right: '$$', display:true},
+          {left: '$', right: '$', display:false},
+          {left: '\\(', right: '\\)', display: false},
+          {left: '\\[', right: '\\]', display: true}
+        ]
+      }
+    );"></script>
+  </section>
+
+    </div>
+
+    <footer class="footer">
+  <section class="container">
+    ©
+    
+    2025
+     Christian Vahrenkamp 
+    
+    
+    
+    
+  </section>
+</footer>
+
+  </main>
+
+  
+
+  
+  
+  <script src="/js/coder.js"></script>
+  
+
+  
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</body>
+</html>

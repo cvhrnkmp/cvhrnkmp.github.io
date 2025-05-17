@@ -245,6 +245,9 @@ Ever asked a chatbot a question only to get a completely made-up answer? So did 
 <li><strong>Generation</strong>: Prompt the model with the question plus those retrieved text chunks, and voilà - an answer backed by real evidence.</li>
 </ol>
 <p><img src="/Post2/RAG_Flow.excalidraw.svg" alt="RAG Flow"></p>
+<!--
+ -->
+<!-- <img src="/images/RAG_Flow.excalidraw.jpg"> -->
 <h2 id="core-components-of-rag">
   Core Components of RAG
   <a class="heading-link" href="#core-components-of-rag">
@@ -376,6 +379,21 @@ $f(q_i, d)$ is the term frequency of the term in the document $d$.</p>
 <li><strong>Fuse</strong> (sum or average).</li>
 <li><strong>Rank</strong> by fused score and grab the top <em>k</em>.</li>
 </ol>
+<!-- 
+```python
+# Pseudo-code for hybrid retrieval
+def hybrid_search(text, vec):
+    v_scores, v_ids = vec_index.search(vec, k=5)
+    b_scores, b_ids = bm25.search(text, k=5)
+
+    fused = {}
+    for idx, v in zip(v_ids, v_scores): fused[idx] = fused.get(idx, 0) + normalize(v)
+    for idx, b in zip(b_ids, b_scores): fused[idx] = fused.get(idx, 0) + normalize(b)
+
+    # Return top chunk IDs
+    return sorted(fused, key=fused.get, reverse=True)[:5]
+```
+-->
 <hr>
 <h2 id="rag-in-action-mini-example">
   RAG in Action: Mini Example

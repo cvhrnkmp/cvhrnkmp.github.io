@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <title>
+  Pre- &amp; Post-Retrieving · Christian Vahrenkamp
+</title>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+
+
+
+
+<meta name="author" content="Christian Vahrenkamp">
+<meta name="description" content="Retrieval-Augmented Generation (RAG) kombiniert die Stärken großer Sprachmodelle (LLMs) mit externen Wissensquellen, um präzisere und aktuellere Antworten zu liefern. Während klassische LLMs ausschließlich auf ihren internen Parametern basieren, ermöglicht RAG das dynamische Einbinden dokumentierter Informationen - von News-Artikeln bis hin zu Fachpublikationen. Ein typischer RAG-Workflow besteht aus drei Schritten:
+
+Indexierung: Aufbereitung und Vektorisierung von Dokumenten.
+Retrieval: Auswahl relevanter Dokumentenschnipsel (Chunks) mittels Vektor-Ähnlichkeitssuche.
+Generierung: Einspeisen von Query und Chunks in das LLM für die finale Antwortformulierung.
+
+Doch gerade im Retrieval-Schritt verstecken sich knifflige Herausforderungen: Ungenaue Suchergebnisse, redundante oder irrelevante Informationen und eine Überfrachtung der Kontextlänge können die Qualität der Generierung beeinträchtigen. In der Forschungsübersicht von Gao et al. (2024) werden daher Pre-Retrieval- und Post-Retrieval-Optimierungen als Kernkomponenten des sogenannten Advanced RAG identifiziert, um diese Schwachstellen zu adressieren">
+<meta name="keywords" content="Large Language Model">
+
+
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Pre- & Post-Retrieving">
+  <meta name="twitter:description" content="Retrieval-Augmented Generation (RAG) kombiniert die Stärken großer Sprachmodelle (LLMs) mit externen Wissensquellen, um präzisere und aktuellere Antworten zu liefern. Während klassische LLMs ausschließlich auf ihren internen Parametern basieren, ermöglicht RAG das dynamische Einbinden dokumentierter Informationen - von News-Artikeln bis hin zu Fachpublikationen. Ein typischer RAG-Workflow besteht aus drei Schritten:
+Indexierung: Aufbereitung und Vektorisierung von Dokumenten. Retrieval: Auswahl relevanter Dokumentenschnipsel (Chunks) mittels Vektor-Ähnlichkeitssuche. Generierung: Einspeisen von Query und Chunks in das LLM für die finale Antwortformulierung. Doch gerade im Retrieval-Schritt verstecken sich knifflige Herausforderungen: Ungenaue Suchergebnisse, redundante oder irrelevante Informationen und eine Überfrachtung der Kontextlänge können die Qualität der Generierung beeinträchtigen. In der Forschungsübersicht von Gao et al. (2024) werden daher Pre-Retrieval- und Post-Retrieval-Optimierungen als Kernkomponenten des sogenannten Advanced RAG identifiziert, um diese Schwachstellen zu adressieren">
+
+<meta property="og:url" content="http://localhost:1313/posts/3_pre_post_retrieving/">
+  <meta property="og:site_name" content="Christian Vahrenkamp">
+  <meta property="og:title" content="Pre- & Post-Retrieving">
+  <meta property="og:description" content="Retrieval-Augmented Generation (RAG) kombiniert die Stärken großer Sprachmodelle (LLMs) mit externen Wissensquellen, um präzisere und aktuellere Antworten zu liefern. Während klassische LLMs ausschließlich auf ihren internen Parametern basieren, ermöglicht RAG das dynamische Einbinden dokumentierter Informationen - von News-Artikeln bis hin zu Fachpublikationen. Ein typischer RAG-Workflow besteht aus drei Schritten:
+Indexierung: Aufbereitung und Vektorisierung von Dokumenten. Retrieval: Auswahl relevanter Dokumentenschnipsel (Chunks) mittels Vektor-Ähnlichkeitssuche. Generierung: Einspeisen von Query und Chunks in das LLM für die finale Antwortformulierung. Doch gerade im Retrieval-Schritt verstecken sich knifflige Herausforderungen: Ungenaue Suchergebnisse, redundante oder irrelevante Informationen und eine Überfrachtung der Kontextlänge können die Qualität der Generierung beeinträchtigen. In der Forschungsübersicht von Gao et al. (2024) werden daher Pre-Retrieval- und Post-Retrieval-Optimierungen als Kernkomponenten des sogenannten Advanced RAG identifiziert, um diese Schwachstellen zu adressieren">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-05-03T08:26:23+02:00">
+    <meta property="article:modified_time" content="2025-05-03T08:26:23+02:00">
+
+
+
+
+<link rel="canonical" href="http://localhost:1313/posts/3_pre_post_retrieving/">
+
+
+<link rel="preload" href="/fonts/fa-brands-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/fa-regular-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin>
+
+
+  
+  
+  <link rel="stylesheet" href="/css/coder.css" media="screen">
+
+
+
+
+
+
+  
+    
+    
+    <link rel="stylesheet" href="/css/coder-dark.css" media="screen">
+  
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="icon" type="image/svg+xml" href="/images/favicon.svg" sizes="any">
+<link rel="icon" type="image/png" href="/images/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/images/favicon-16x16.png" sizes="16x16">
+
+<link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+
+
+</head>
+
+
+
+
+
+
+<body class="preload-transitions colorscheme-auto">
+  
+<div class="float-container">
+    <a id="dark-mode-toggle" class="colorscheme-toggle">
+        <i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i>
+    </a>
+</div>
+
+
+  <main class="wrapper">
+    <nav class="navigation">
+  <section class="container">
+    
+    <a class="navigation-title" href="http://localhost:1313/">
+      Christian Vahrenkamp
+    </a>
+    
+    
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa-solid fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
+        
+          
+            <li class="navigation-item">
+              <a class="navigation-link " href="/posts/">Blog</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link " href="/about/">About</a>
+            </li>
+          
+        
+        
+      </ul>
+    
+  </section>
+</nav>
+
+
+    <div class="content">
+      
+
+    
+    <link
+      rel="stylesheet"
+      href="/css/heading-numbers.css"
+      media="screen"
+    />
+  
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">
+            <a class="title-link" href="http://localhost:1313/posts/3_pre_post_retrieving/">
+              Pre- &amp; Post-Retrieving
+            </a>
+          </h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fa-solid fa-calendar" aria-hidden="true"></i>
+              <time datetime="2025-05-03T08:26:23&#43;02:00">
+                May 3, 2025
+              </time>
+            </span>
+            <span class="reading-time">
+              <i class="fa-solid fa-clock" aria-hidden="true"></i>
+              5-minute read
+            </span>
+          </div>
+          
+          
+          
+        </div>
+      </header>
+      
+      <div class="post-content">
+        
+        
+        
+        
+      
+        
+          
+          
+          
+          
+          
+          
+      
+          <p>Retrieval-Augmented Generation (RAG) kombiniert die Stärken großer Sprachmodelle (LLMs) mit externen Wissensquellen, um präzisere und aktuellere Antworten zu liefern. Während klassische LLMs ausschließlich auf ihren internen Parametern basieren, ermöglicht RAG das dynamische Einbinden dokumentierter Informationen - von News-Artikeln bis hin zu Fachpublikationen. Ein typischer RAG-Workflow besteht aus drei Schritten:</p>
+<ul>
+<li>Indexierung: Aufbereitung und Vektorisierung von Dokumenten.</li>
+<li>Retrieval: Auswahl relevanter Dokumentenschnipsel (Chunks) mittels Vektor-Ähnlichkeitssuche.</li>
+<li>Generierung: Einspeisen von Query und Chunks in das LLM für die finale Antwortformulierung.</li>
+</ul>
+<p>Doch gerade im Retrieval-Schritt verstecken sich knifflige Herausforderungen: Ungenaue Suchergebnisse, redundante oder irrelevante Informationen und eine Überfrachtung der Kontextlänge können die Qualität der Generierung beeinträchtigen. In der Forschungsübersicht von <a href="https://arxiv.org/pdf/2312.10997"  class="external-link" target="_blank" rel="noopener">Gao et al. (2024)</a> werden daher <strong>Pre-Retrieval-</strong> und <strong>Post-Retrieval-Optimierungen</strong> als Kernkomponenten des sogenannten <em>Advanced RAG</em> identifiziert, um diese Schwachstellen zu adressieren</p>
+<nav id="TableOfContents">
+  <ol>
+    <li><a href="#pre-retrieval">Pre-Retrieval</a></li>
+    <li><a href="#post-retrieval">Post-Retrieval</a></li>
+    <li><a href="#zusammenfassung">Zusammenfassung</a></li>
+    <li><a href="#take-aways">Take Aways</a></li>
+  </ol>
+</nav><h2 id="pre-retrieval">
+  Pre-Retrieval
+  <a class="heading-link" href="#pre-retrieval">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p>Vor dem eigentlichen Abruf (<em>Retrieval</em>) geht es darum, sowohl die Dokumentenbasis als auch die Nutzeranfrage selbst so aufzubereiten, dass die anschließende Suche möglichst zielgenau verläuft.</p>
+<h3 id="index-optimierung">
+  Index Optimierung
+  <a class="heading-link" href="#index-optimierung">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<!-- Feingranulare Chunk-Segmentation -->
+<p>Bei der Aufteilung der Dokumente (<em>Chunk Splitting</em>) werden die Dokumente nicht in willkürlicher Länger, sondern in homogenen Abschnitten aufgeteilt. Das erhöht die Wahrscheinlichkeit, dass die Vektor-Darstellungen tatsächlich thematische Treff­sicherheit bieten.</p>
+<p>Darüber hinaus können noch Metadaten extrahiert werden.
+Zusätzliche Informationen (z. B. Dokumenttyp, Veröffentlichungsdatum, Autor) können bei der späteren Filterung helfen, irrelevante Schnipsel auszuschließen.</p>
+<h3 id="query-transformation">
+  Query Transformation
+  <a class="heading-link" href="#query-transformation">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<p>Eine gute Nutzeranfrage ist ein Erfolgstreiber für RAG. Denn wenn die Anfrage schon schlecht gestellt ist, dann ist das Zurückgeben von relevanten Dokumentenabschnitte ebenfalls schlecht. Daher kann es vorteilhaft sein die Nutzeranfrage nochmals anzupassen, um sie für das Retrieving zu optimieren.</p>
+<p>Beim <em>Query Rewriting</em> wird die ursprüngliche Nutzerfrage mittels NLP-Techniken und LLMs umgeformt, um Mehrdeutigkeiten zu reduzieren und Suchbegriffe fokussierter zu gestalten.</p>
+<p><em>Query Expansion</em> beschreibt das Hinzufügen von semantisch verwandter Begriffe (Thesaurus, Wortnetze), um relevante Dokumente zu finden, die ohne Expansion verborgen bleiben.</p>
+<p>Außerdem kann die Query angepasst werden. Synonym-Ersetzung oder Umformulierung in prägnantere Suchanfragen verbessern das Retrieving.</p>
+<h2 id="post-retrieval">
+  Post-Retrieval
+  <a class="heading-link" href="#post-retrieval">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p>Nachdem eine erste Auswahl an Dokumentenabschnitte vorgenommen wurde, muss die Fülle an Informationen aufbereitet werden und für den Prompt für das LLM optimal vorbereitet werden. Das ist <em>Post-Retrieval</em>.</p>
+<h3 id="context-compression">
+  Context Compression
+  <a class="heading-link" href="#context-compression">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<p>Mittels Textzusammenfassung oder Extraktionsalgorithmen wird der Dokumentkontext auf das Wesentliche reduziert. So verhindert man, dass irrelevante Details das LLM ablenken.</p>
+<p>Außerdem werden Ähnliche oder doppelte Informationen entfernt, um die Prompt-Länge sinnvoll auszunutzen und Overload zu vermeiden.</p>
+<p>Je nach Anforderungen passt sich die Menge der Chunks dynamisch an: Fragen, die nur kurze Fakten benötigen, bekommen weniger, dafür aber sehr fokussierte Passagen.</p>
+<h3 id="zusammenführung-der-retriever-methoden">
+  Zusammenführung der Retriever-Methoden
+  <a class="heading-link" href="#zusammenf%c3%bchrung-der-retriever-methoden">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<p>Wenn innerhalb der RAG-Pipeline mehrere Retriever genutzt, muss das Ergebnis zuletzt zusammengeführt werden, um ein finales Ranking der Dokumentenabschnitte nach Relevanz durchzuführen.</p>
+<p>Dazu können die Scores der Retriever je Dokumentenabschnitt summiert werden. Dabei muss berücksichtigt werden, dass die Scores der Retriever normalisiert sind. Manche Retriever-Methoden wie die Cosine Similarity sind auf den Zahlenbereich $[-1, 1]$ beschränkt. Währenddessen liegt der Score von der Keyword-Suche mit BM25 zwischen $[0, \infty]$.</p>
+<p>Eine andere Methode ist Reciprocal Rank Fusion.</p>
+<h4 id="reciprocal-rank-fusion-rff">
+  Reciprocal Rank Fusion (RFF)
+  <a class="heading-link" href="#reciprocal-rank-fusion-rff">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h4>
+<p><a href="https://plg.uwaterloo.ca/~gvcormac/cormacksigir09-rrf.pdf"  class="external-link" target="_blank" rel="noopener">Reciprocal Rank Fusion (RRF)</a> ist eine einfache Methode zur Kombination mehrerer unterschiedlicher Rangordnungsmethoden im Bereich des Information Retrieval. RRF sortiert die Dokumente einfach nach dem Rang der einzelnen Dokumente in allen Retriever-Sets:
+$$
+score (d\in D) = \sum_{r \in R}{} \frac{1}{k+r(d)}
+$$
+mit $k = 60$. Ein größeres $k$ relativiert die Rank-Distanz.
+RRF lässt den räumliche Abstand zwischen den Punktzahlen des ersten und zweiten Ranges bei RRF unberücksichtigt. Bei der Ähnlichkeitssuche (linkes Diagramm in der folgenden Grafik) hat beispielsweise der erste Rang einen Wert von 0,9 und der zweite Rang einen Wert von 0,3. Wenn wir $k$ vernachlässigen und den RRF-Score (rechtes Diagramm in Folgegrafik) für das erste und zweite Dokument berechnen, sehen wir, dass der Unterschied zwischen $\frac{1}{1}= 1$ für den ersten Rang und $\frac{1}{2} = 0.5$ für den zweiten Rang kleiner ist als der Unterschied der Cosine Similarity zwischen dem ersten und zweiten Rang, wie in der folgenden Grafik dargestellt:</p>
+<p style="text-align: center;">
+  <img src="https://github.com/vanny132/Datenanalyse_UN_RAG/assets/102876328/3ce21449-4252-4064-a7a8-2aa38874d55f", width="80%" title = "Left: Score by method (like cosine-similarity) of datapoints - Rigth: The RRF-score for each datapoint/value">
+</p>
+Das bedeutet, dass wir durch RRF Informationen verlieren. 
+<h3 id="lost-in-the-middle">
+  Lost-in-the-Middle
+  <a class="heading-link" href="#lost-in-the-middle">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h3>
+<p>Sprachmodelle haben Schwierigkeiten lange Kontexte zu verarbeiten, dass hat <a href="https://arxiv.org/abs/2307.03172"  class="external-link" target="_blank" rel="noopener">Nelson F. Liu et. al.</a> herausgefunden. Daraus wird deutlich, dass Modelle besser darin sind, relevante Informationen zu nutzen, die ganz am Anfang oder am Ende des Eingabekontextes vorkommen und das die Leistung deutlich abnimmt, wenn Modelle auf Informationen in der Mitte des Eingabekontextes zugreifen und diese nutzen müssen. Das bedeutet für das Re-Ranking, dass die abgerufenen Dokumente in einer bestimmten Reihenfolge gemäß dem folgenden Diagramm angeordnet sein müssen:</p>
+<p style="text-align: center;">
+  <img src="https://github.com/vanny132/Datenanalyse_UN_RAG/assets/102876328/c2c2cd86-5b8a-44ea-9fd4-6b44bd3a0891", width="40%">
+</p>
+<p>Diese Grafik zeigt, dass das vierte relevante Dokument an letzter Stelle stehen muss. Auf der Grundlage der Arbeit von <a href="https://arxiv.org/abs/2307.03172"  class="external-link" target="_blank" rel="noopener">Nelson F. Liu et. al.</a> implementiere ich einen Long-Context-Reranker, da ich aus eigener Erfahrung damit bessere Ergebnisse erzielt habe.</p>
+<h2 id="zusammenfassung">
+  Zusammenfassung
+  <a class="heading-link" href="#zusammenfassung">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<p>Retrieval-Augmented Generation bietet enorme Potenziale, um die Grenzen klassischer Sprachmodelle zu überwinden – vorausgesetzt, das zugrunde liegende Retrieval ist präzise, effizient und robust. Dabei zeigt sich: Die Qualität der Antwort steht und fällt nicht nur mit dem LLM selbst, sondern vor allem mit dem, was und wie es an Kontext übergeben bekommt.</p>
+<p>Die vorgestellten Pre- und Post-Retrieval-Techniken sind keine bloßen Feinjustierungen, sondern entscheidende Stellschrauben in der RAG-Pipeline. Sie helfen, semantisch relevantere Inhalte zu identifizieren, Kontextüberfrachtung zu vermeiden und Modellschwächen – wie etwa das &ldquo;Lost-in-the-Middle&rdquo;-Phänomen – gezielt zu kompensieren.</p>
+<p>Advanced RAG ist somit kein Selbstläufer, sondern erfordert bewusstes Engineering entlang der gesamten Pipeline – von der Dokumentvorverarbeitung bis hin zur Reihenfolge der Prompt-Chunks.</p>
+<h2 id="take-aways">
+  Take Aways
+  <a class="heading-link" href="#take-aways">
+    <i class="fa-solid fa-link" aria-hidden="true" title="Link to heading"></i>
+    <span class="sr-only">Link to heading</span>
+  </a>
+</h2>
+<ol>
+<li>
+<p>Chunking ist mehr als Textzerlegung: Semantisch kohärente Chunks und Metadaten verbessern Retrieval-Qualität erheblich.</p>
+</li>
+<li>
+<p>Gute Queries sind (halb) gewonnene Antworten: Query-Rewriting und -Expansion helfen, die Nutzerintention präziser abzubilden.</p>
+</li>
+<li>
+<p>Nicht jeder Treffer ist ein Gewinn: Nach dem Retrieval muss eine gezielte Kontextverdichtung stattfinden, um Relevanz und Fokus zu wahren.</p>
+</li>
+<li>
+<p>Retriever-Kombination erfordert Sorgfalt: Methoden wie Reciprocal Rank Fusion können helfen – bergen aber auch Informationsverlust.</p>
+</li>
+<li>
+<p>Kontextplatz ist kostbar: Richtiges Re-Ranking unter Berücksichtigung von LLM-Verarbeitungsschwächen (z. B. &ldquo;Lost-in-the-Middle&rdquo; steigert die Antwortqualität messbar.</p>
+</li>
+</ol>
+
+      </div>
+
+
+      <footer>
+        
+
+
+        
+        
+        <div class="comments">
+  <script>
+
+    let getTheme = window.localStorage && window.localStorage.getItem("colorscheme");
+    let themeInParams = 'preferred-color-scheme';
+
+    if (getTheme == null) {
+      if (themeInParams !== '' && themeInParams !== 'auto') {
+        getTheme = themeInParams;
+      }
+      else {
+        getTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? "dark" : "light";
+      }
+    }
+
+    let theme = getTheme === 'dark' ? 'github-dark' : 'github-light';
+    let s = document.createElement('script');
+    s.src = 'https://utteranc.es/client.js';
+    s.setAttribute('repo', 'cvhrnkmp\/cvhrnkmp.github.io');
+    s.setAttribute('issue-term', 'pathname');
+    s.setAttribute('theme', theme);
+    s.setAttribute('crossorigin', 'anonymous');
+    s.setAttribute('async', '');
+    document.querySelector('div.comments').innerHTML = '';
+    document.querySelector('div.comments').appendChild(s);
+
+  </script>
+</div>
+        
+        
+        
+        
+      </footer>
+    </article>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css"
+    integrity="sha384-vKruj+a13U8yHIkAyGgK1J3ArTLzrFGBbBc0tDp4ad/EyewESeXE/Iv67Aj8gKZ0" crossorigin="anonymous">
+  
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.js"
+    integrity="sha384-PwRUT/YqbnEjkZO0zZxNqcxACrXe+j766U2amXcgMg5457rve2Y7I6ZJSm2A0mS4" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/contrib/auto-render.min.js"
+    integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous"
+    onload="renderMathInElement(document.body,
+      {
+        delimiters: [
+          {left: '$$', right: '$$', display:true},
+          {left: '$', right: '$', display:false},
+          {left: '\\(', right: '\\)', display: false},
+          {left: '\\[', right: '\\]', display: true}
+        ]
+      }
+    );"></script>
+  </section>
+
+    </div>
+
+    <footer class="footer">
+  <section class="container">
+    ©
+    
+    2025
+     Christian Vahrenkamp 
+    
+    
+    
+    
+  </section>
+</footer>
+
+  </main>
+
+  
+
+  
+  
+  <script src="/js/coder.js"></script>
+  
+
+  
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</body>
+</html>
