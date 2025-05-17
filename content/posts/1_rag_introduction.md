@@ -4,7 +4,7 @@
  math = true
  number-sections = true
  disableComments = false
- title = 'Eine sanfte Einführung in Retrieval Augmented Generation (RAG)'
+ title = '#1 Eine sanfte Einführung in Retrieval Augmented Generation (RAG)'
  [params]
     series = ["RAG"]
 +++

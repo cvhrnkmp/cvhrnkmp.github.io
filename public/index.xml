@@ -9,28 +9,28 @@
     <lastBuildDate>Sat, 03 May 2025 08:26:23 +0200</lastBuildDate>
     <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Pre- &amp; Post-Retrieving</title>
+      <title>#3 Pre- &amp; Post-Retrieving</title>
       <link>http://localhost:1313/posts/3_pre_post_retrieving/</link>
       <pubDate>Sat, 03 May 2025 08:26:23 +0200</pubDate>
       <guid>http://localhost:1313/posts/3_pre_post_retrieving/</guid>
       <description>&lt;p&gt;Retrieval-Augmented Generation (RAG) kombiniert die Stärken großer Sprachmodelle (LLMs) mit externen Wissensquellen, um präzisere und aktuellere Antworten zu liefern. Während klassische LLMs ausschließlich auf ihren internen Parametern basieren, ermöglicht RAG das dynamische Einbinden dokumentierter Informationen - von News-Artikeln bis hin zu Fachpublikationen. Ein typischer RAG-Workflow besteht aus drei Schritten:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Indexierung: Aufbereitung und Vektorisierung von Dokumenten.&lt;/li&gt;&#xA;&lt;li&gt;Retrieval: Auswahl relevanter Dokumentenschnipsel (Chunks) mittels Vektor-Ähnlichkeitssuche.&lt;/li&gt;&#xA;&lt;li&gt;Generierung: Einspeisen von Query und Chunks in das LLM für die finale Antwortformulierung.&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;Doch gerade im Retrieval-Schritt verstecken sich knifflige Herausforderungen: Ungenaue Suchergebnisse, redundante oder irrelevante Informationen und eine Überfrachtung der Kontextlänge können die Qualität der Generierung beeinträchtigen. In der Forschungsübersicht von &lt;a href=&#34;https://arxiv.org/pdf/2312.10997&#34;  class=&#34;external-link&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Gao et al. (2024)&lt;/a&gt; werden daher &lt;strong&gt;Pre-Retrieval-&lt;/strong&gt; und &lt;strong&gt;Post-Retrieval-Optimierungen&lt;/strong&gt; als Kernkomponenten des sogenannten &lt;em&gt;Advanced RAG&lt;/em&gt; identifiziert, um diese Schwachstellen zu adressieren&lt;/p&gt;</description>
     </item>
     <item>
-      <title>Zeitsensitives Retrieving</title>
+      <title>#4 Zeitsensitives Retrieving</title>
       <link>http://localhost:1313/posts/4_time_aware_retriever/</link>
       <pubDate>Sat, 03 May 2025 08:26:23 +0200</pubDate>
       <guid>http://localhost:1313/posts/4_time_aware_retriever/</guid>
       <description>&lt;h2 id=&#34;introduciton&#34;&gt;&#xD;&#xA;  introduciton&#xD;&#xA;  &lt;a class=&#34;heading-link&#34; href=&#34;#introduciton&#34;&gt;&#xD;&#xA;    &lt;i class=&#34;fa-solid fa-link&#34; aria-hidden=&#34;true&#34; title=&#34;Link to heading&#34;&gt;&lt;/i&gt;&#xD;&#xA;    &lt;span class=&#34;sr-only&#34;&gt;Link to heading&lt;/span&gt;&#xD;&#xA;  &lt;/a&gt;&#xD;&#xA;&lt;/h2&gt;&#xD;&#xA;&lt;p&gt;test&lt;/p&gt;</description>
     </item>
     <item>
-      <title>Retriever: Das Herz von Retrieval Augmented Generation</title>
+      <title>#2 Retriever: Das Herz von Retrieval Augmented Generation</title>
       <link>http://localhost:1313/posts/2_basic_retriever_methods/</link>
       <pubDate>Wed, 30 Apr 2025 15:26:23 +0200</pubDate>
       <guid>http://localhost:1313/posts/2_basic_retriever_methods/</guid>
       <description>&lt;p&gt;Das Herz von Retrieval Augmented Generation ist der Retriever, welcher die relevantesten bzw. ähnlichsten Textpassage zu einer Anfrage finden soll. &lt;em&gt;Soll&lt;/em&gt; - ja richtig gehört, dass ist nicht immer der Fall. Retriever haben nicht nur Stärken, sondern auch Schwächen. Deswegen wurden im Laufe der Zeit verschiedene Retriever-Methoden entwickelt und davon haben sich zwei im Wesentlichen durchgesetzt: Vektor-Suche und Keyword-Suche. Diese beiden Verfahren können jetzt unterschiedlich miteinander kombiniert und unterschiedlich ausgeführt werden.&lt;/p&gt;</description>
     </item>
     <item>
-      <title>Eine sanfte Einführung in Retrieval Augmented Generation (RAG)</title>
+      <title>#1 Eine sanfte Einführung in Retrieval Augmented Generation (RAG)</title>
       <link>http://localhost:1313/posts/1_rag_introduction/</link>
       <pubDate>Sat, 19 Apr 2025 15:26:23 +0200</pubDate>
       <guid>http://localhost:1313/posts/1_rag_introduction/</guid>

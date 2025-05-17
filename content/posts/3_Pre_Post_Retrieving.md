@@ -4,7 +4,7 @@
  math = true
  number-sections = true
  disableComments = false
- title = 'Pre- & Post-Retrieving'
+ title = '#3 Pre- & Post-Retrieving'
 +++
 
 Retrieval-Augmented Generation (RAG) kombiniert die Stärken großer Sprachmodelle (LLMs) mit externen Wissensquellen, um präzisere und aktuellere Antworten zu liefern. Während klassische LLMs ausschließlich auf ihren internen Parametern basieren, ermöglicht RAG das dynamische Einbinden dokumentierter Informationen - von News-Artikeln bis hin zu Fachpublikationen. Ein typischer RAG-Workflow besteht aus drei Schritten:

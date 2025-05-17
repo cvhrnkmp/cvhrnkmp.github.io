@@ -4,7 +4,7 @@
  math = true
  number-sections = true
  disableComments = false
- title = 'Retriever: Das Herz von Retrieval Augmented Generation'
+ title = '#2 Retriever: Das Herz von Retrieval Augmented Generation'
 +++
 
 Das Herz von Retrieval Augmented Generation ist der Retriever, welcher die relevantesten bzw. ähnlichsten Textpassage zu einer Anfrage finden soll. *Soll* - ja richtig gehört, dass ist nicht immer der Fall. Retriever haben nicht nur Stärken, sondern auch Schwächen. Deswegen wurden im Laufe der Zeit verschiedene Retriever-Methoden entwickelt und davon haben sich zwei im Wesentlichen durchgesetzt: Vektor-Suche und Keyword-Suche. Diese beiden Verfahren können jetzt unterschiedlich miteinander kombiniert und unterschiedlich ausgeführt werden.   
